@@ -14,7 +14,7 @@ export default function Header() {
           {/* <Button name={nameButton[0]} />
           <Button name={nameButton[1]} /> */}
           {
-            nameButton.map((element) => <Button key={new Date()} name={element} />)
+            nameButton.map((element) => <Button key={element} name={element} />)
           }
         </div>
       </div>
