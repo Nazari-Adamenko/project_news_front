@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Card from '../../components/Card/Card';
+import Spinier from '../../components/Spinier/Spinier';
+import Massage from '../../components/Message/Message';
+import './MainPage.css';
 
 import { getPosts } from '../../redux/actions';
 
@@ -19,14 +22,14 @@ export default function MainPage() {
   } = useSelector((state) => state.posts);
 
   if (isFetching) {
-    return 'Loading...';
+    return <Spinier />;
   }
   if (error) {
-    console.error(error);
+    return <Massage text={error} />;
   }
 
   return (
-    <>
+    <div className="d-flex flex-wrap">
       {posts.map((post) => (
         <Card
           key={post.id}
@@ -36,6 +39,6 @@ export default function MainPage() {
           autour={post.user_id}
         />
       ))}
-    </>
+    </div>
   );
 }
