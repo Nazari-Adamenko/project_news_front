@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-
 import { string } from 'prop-types';
 
 function Message({ text }) {

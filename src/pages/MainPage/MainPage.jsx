@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Card from '../../components/Card/Card';
-import Spinier from '../../components/Spinier/Spinier';
-import Massage from '../../components/Message/Message';
+import Spinner from '../../components/Spinner/Spinner';
+import Message from '../../components/Message/Message';
 import './MainPage.css';
 
 import { getPosts } from '../../redux/actions';
@@ -22,21 +22,23 @@ export default function MainPage() {
   } = useSelector((state) => state.posts);
 
   if (isFetching) {
-    return <Spinier />;
+    return <Spinner />;
   }
   if (error) {
-    return <Massage text={error} />;
+    return <Message text={error} />;
   }
 
   return (
     <div className="d-flex flex-wrap">
-      {posts.map((post) => (
+      {posts.map(({
+        id, title, content, tag, userId,
+      }) => (
         <Card
-          key={post.id}
-          title={post.title}
-          content={post.content}
-          tag={post.tag}
-          autour={post.user_id}
+          key={id}
+          title={title}
+          content={content}
+          tag={tag}
+          author={userId}
         />
       ))}
     </div>

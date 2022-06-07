@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { string } from 'prop-types';
 
 export default function Button({ name }) {
   return (
@@ -8,5 +8,5 @@ export default function Button({ name }) {
 }
 
 Button.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: string.isRequired,
 };
