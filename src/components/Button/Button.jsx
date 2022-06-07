@@ -1,12 +1,15 @@
-import React from 'react';
-import { string } from 'prop-types';
+import React, { memo } from 'react';
+import { func, string } from 'prop-types';
 
-export default function Button({ name }) {
+function Button({ name, actionButton }) {
   return (
-    <button type="button" className="btn btn-primary me-1">{name}</button>
+    <button onClick={() => actionButton(name)} type="button" className="btn btn-primary me-1">{name}</button>
   );
 }
 
 Button.propTypes = {
   name: string.isRequired,
+  actionButton: func.isRequired,
 };
+
+export default memo(Button);

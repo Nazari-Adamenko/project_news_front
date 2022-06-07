@@ -8,7 +8,7 @@ import './Card.css';
 
 function Card({ title, content, author }) {
   return (
-    <div className="card" style={{ width: '18rem' }}>
+    <div className="card">
       <img src={newsImg} className="card-img-top" alt="failed to load" />
       <div className="card-body">
         <p className="h3 m-0">{title}</p>

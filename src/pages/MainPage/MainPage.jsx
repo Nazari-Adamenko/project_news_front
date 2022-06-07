@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Card from '../../components/Card/Card';
@@ -8,18 +8,16 @@ import './MainPage.css';
 
 import { getPosts } from '../../redux/actions';
 
-export default function MainPage() {
+function MainPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts());
   }, [dispatch]);
 
-  const {
-    posts,
-    error,
-    isFetching,
-  } = useSelector((state) => state.posts);
+  const { posts } = useSelector((state) => state.posts);
+  const { error } = useSelector((state) => state.posts);
+  const { isFetching } = useSelector((state) => state.posts);
 
   if (isFetching) {
     return <Spinner />;
@@ -31,7 +29,11 @@ export default function MainPage() {
   return (
     <div className="d-flex flex-wrap">
       {posts.map(({
-        id, title, content, tag, userId,
+        id,
+        title,
+        content,
+        tag,
+        userId,
       }) => (
         <Card
           key={id}
@@ -44,3 +46,5 @@ export default function MainPage() {
     </div>
   );
 }
+
+export default memo(MainPage);

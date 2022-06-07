@@ -8,7 +8,18 @@ export const gotPosts = (payload) => ({
   type: actionTypes.POSTS_RECEIVED,
   payload,
 });
+
 export const cannotGetNews = (error) => ({
   type: actionTypes.POSTS_FAILED,
   error,
+});
+
+export const getModalRegistration = (payload) => ({
+  type: actionTypes.MODAL_REGISTRATION,
+  payload,
+});
+
+export const getModalAutorotation = (payload) => ({
+  type: actionTypes.MODAL_AUTOROTATION,
+  payload,
 });

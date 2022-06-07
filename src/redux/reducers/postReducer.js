@@ -10,15 +10,24 @@ export default function postsReducer(state = initialState, action = {}) {
   switch (action.type) {
     case POSTS_REQUESTED:
       return {
-        ...state, isFetching: true, posts: [], error: null,
+        ...state,
+        isFetching: true,
+        posts: [],
+        error: null,
       };
     case POSTS_RECEIVED:
       return {
-        ...state, isFetching: false, posts: action.payload, error: null,
+        ...state,
+        isFetching: false,
+        posts: action.payload,
+        error: null,
       };
     case POSTS_FAILED:
       return {
-        ...state, isFetching: false, posts: [], error: action.error,
+        ...state,
+        isFetching: false,
+        posts: [],
+        error: action.error,
       };
     default:
       return state;
