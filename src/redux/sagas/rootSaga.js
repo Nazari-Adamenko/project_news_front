@@ -4,6 +4,6 @@ import postSaga from './postSaga';
 
 export default function* rootSaga() {
   yield all([
-    postSaga,
+    postSaga(),
   ]);
 }
