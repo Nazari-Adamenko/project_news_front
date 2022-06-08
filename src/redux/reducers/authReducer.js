@@ -1,29 +1,17 @@
-import { MODAL_REGISTRATION, MODAL_AUTOROTATION, MODAL_CLOSE } from '../constants';
+import { GET_MODAL } from '../constants';
 
 const initialState = {
-  isOpen: false,
+  statusModal: false,
   typeModal: '',
 };
 
 export default function authReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case MODAL_REGISTRATION:
+    case GET_MODAL:
       return {
         ...state,
-        typeModal: 'registration',
-        isOpen: true,
-      };
-    case MODAL_AUTOROTATION:
-      return {
-        ...state,
-        typeModal: 'autorotation',
-        isOpen: true,
-      };
-    case MODAL_CLOSE:
-      return {
-        ...state,
-        typeModal: '',
-        isOpen: false,
+        typeModal: action.payload.type,
+        statusModal: action.payload.status,
       };
     default:
       return state;

@@ -1,24 +1,17 @@
-import React, { useEffect, memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { memo } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Button from '../Button/Button';
 
-import { getModalRegistration, getModalAutorotation } from '../../redux/actions';
+import { getModal } from '../../redux/actions';
 
 function Header() {
   const dispatch = useDispatch();
   const nameButton = ['Sign In', 'Sign Up'];
 
-  const openModal = (type) => {
-    type === nameButton[0]
-      ? dispatch(getModalRegistration())
-        : dispatch(getModalAutorotation()),
+  const openModal = (name) => {
+    dispatch(getModal({ status: true, type: name }));
   };
-
-  const {
-    // isOpen,
-    typeModal,
-  } = useSelector((state) => state);
 
   return (
     <nav className="navbar bg-light">
@@ -31,8 +24,7 @@ function Header() {
           {
             nameButton.map((element) => (
               <Button
-                actionButton={openModal}
-                type={typeModal}
+                openModal={openModal}
                 key={element}
                 name={element}
               />

@@ -14,12 +14,7 @@ export const cannotGetNews = (error) => ({
   error,
 });
 
-export const getModalRegistration = (payload) => ({
-  type: actionTypes.MODAL_REGISTRATION,
-  payload,
-});
-
-export const getModalAutorotation = (payload) => ({
-  type: actionTypes.MODAL_AUTOROTATION,
+export const getModal = (payload) => ({
+  type: actionTypes.GET_MODAL,
   payload,
 });
