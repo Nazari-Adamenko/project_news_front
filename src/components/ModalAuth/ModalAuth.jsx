@@ -13,7 +13,7 @@ function ModalAuth() {
   const statusModal = useSelector((state) => state.auth.statusModal);
   const typeModal = useSelector((state) => state.auth.typeModal);
   const authFailed = useSelector((state) => state.auth.isFetching);
-
+  const a = 'awdawd'; 
   const isAuth = typeModal === 'Sign Up';
   const closeModal = () => {
     dispatch(getModal({ status: false, type: '' }));
@@ -22,7 +22,7 @@ function ModalAuth() {
   const registrationUser = (event) => {
     dispatch(createUser(event));
   };
-
+  console.log(a);
   const validate = yup.object({
     name: yup.string()
       .max(15, 'Must be 15 characters or less')
