@@ -18,3 +18,18 @@ export const getModal = (payload) => ({
   type: actionTypes.GET_MODAL,
   payload,
 });
+
+export const createUser = (payload) => ({
+  type: actionTypes.USER_REGISTRATION,
+  payload,
+});
+
+export const gotUsers = (payload) => ({
+  type: actionTypes.AUTH_RECEIVED,
+  payload,
+});
+
+export const cannotBedRequest = (error) => ({
+  type: actionTypes.AUTH_FAILED,
+  error,
+});

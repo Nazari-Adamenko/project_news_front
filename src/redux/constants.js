@@ -3,3 +3,8 @@ export const POSTS_RECEIVED = 'POSTS_RECEIVED';
 export const POSTS_FAILED = 'POSTS_FAILED';
 
 export const GET_MODAL = 'GET_MODAL';
+
+export const USER_REGISTRATION = 'USER_REGISTRATION';
+export const USER_AUTOROTATION = 'USER_AUTOROTATION';
+export const AUTH_RECEIVED = 'AUTH_RECEIVED';
+export const AUTH_FAILED = 'AUTH_FAILED';

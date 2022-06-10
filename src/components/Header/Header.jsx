@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import Button from '../Button/Button';
+import ButtonAuthGroup from '../ButtonAuthGroup/ButtonAuthGroup';
 
 import { getModal } from '../../redux/actions';
 
@@ -23,7 +23,7 @@ function Header() {
         <div>
           {
             nameButton.map((element) => (
-              <Button
+              <ButtonAuthGroup
                 openModal={openModal}
                 key={element}
                 name={element}

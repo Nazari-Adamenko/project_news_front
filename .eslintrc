@@ -1,9 +1,14 @@
 {
   "extends": "airbnb",
-  "plugins": ["react"],
+  "plugins": [
+    "react"
+  ],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     }
+  },
+  "rules": {
+    
   }
 }
