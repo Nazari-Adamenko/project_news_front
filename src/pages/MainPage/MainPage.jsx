@@ -28,7 +28,11 @@ function MainPage() {
   return (
     <div className="d-flex flex-wrap gap-5 pt-3 pb-3">
       {posts.map(({
-        id, title, content, tag, userId,
+        id,
+        title,
+        content,
+        tag,
+        userId,
       }) => (
         <Card
           key={id}

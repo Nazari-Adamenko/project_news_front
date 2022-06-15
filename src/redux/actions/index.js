@@ -14,8 +14,8 @@ export const cannotGetNews = (error) => ({
   error,
 });
 
-export const getModal = (payload) => ({
-  type: actionTypes.GET_MODAL,
+export const toggleModal = (payload) => ({
+  type: actionTypes.TOGGLE_MODAL,
   payload,
 });
 
@@ -29,12 +29,12 @@ export const gotUsers = (payload) => ({
   payload,
 });
 
-export const destroyUser = (payload) => ({
+export const authLogout = (payload) => ({
   type: actionTypes.AUTH_LOGOUT,
   payload,
 });
 
-export const cannotBedRequest = (error) => ({
+export const cannotBadRequest = (error) => ({
   type: actionTypes.AUTH_FAILED,
   error,
 });

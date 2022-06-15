@@ -1,5 +1,5 @@
 import {
-  GET_MODAL,
+  TOGGLE_MODAL,
   AUTH_RECEIVED,
   USER_DATA,
   AUTH_FAILED,
@@ -9,15 +9,15 @@ import {
 const initialState = {
   statusModal: false,
   typeModal: '',
-  user: [],
-  isFetching: '',
+  user: {},
+  isFetching: null,
   isLoggedIn: Boolean(localStorage.getItem('token')),
-  error: '',
+  error: null,
 };
 
 export default function authReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case GET_MODAL:
+    case TOGGLE_MODAL:
       return {
         ...state,
         typeModal: action.payload.type,
@@ -38,14 +38,14 @@ export default function authReducer(state = initialState, action = {}) {
     case USER_DATA:
       return {
         ...state,
-        user: [],
+        user: {},
         isFetching: true,
         error: null,
       };
     case AUTH_FAILED:
       return {
         ...state,
-        user: [],
+        user: {},
         isFetching: false,
         error: action.error,
       };

@@ -2,24 +2,21 @@ import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Image from 'react-bootstrap/Image';
-import { Button } from 'react-bootstrap';
-import ButtonAuthGroup from '../ButtonAuthGroup/ButtonAuthGroup';
+import Button from 'react-bootstrap/Button';
 
-import { getModal, destroyUser } from '../../redux/actions';
+import { toggleModal, authLogout } from '../../redux/actions';
 
 function Header() {
   const dispatch = useDispatch();
-  const nameButton = ['Sign In', 'Sign Up'];
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const openModal = (name) => {
-    dispatch(getModal({ status: true, type: name }));
+    dispatch(toggleModal({ status: true, type: name }));
   };
-
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const logoutUser = () => {
     localStorage.removeItem('token');
-    dispatch(destroyUser());
+    dispatch(authLogout());
   };
 
   return (
@@ -30,20 +27,31 @@ function Header() {
         </a>
         <p className="h1 m-0">News site</p>
         <div>
-          {!isLoggedIn
-            ? nameButton.map((element) => (
-              <ButtonAuthGroup
-                openModal={openModal}
-                key={element}
-                name={element}
-              />
-            ))
-            : (
-              <>
-                <Image className="me-3 bg-dark text-white" roundedCircle alt="image" />
-                <Button type="button" onClick={logoutUser} variant="primary">Logout</Button>
-              </>
-            )}
+          {
+            !isLoggedIn
+              ? (
+                <>
+                  <Button className="me-3" onClick={() => openModal('Sign In')}>Sign In</Button>
+                  <Button onClick={() => openModal('Sign Up')}>Sign Up</Button>
+                </>
+              )
+              : (
+                <>
+                  <Image
+                    className="me-3 bg-dark text-white"
+                    roundedCircle
+                    alt="image"
+                  />
+                  <Button
+                    type="button"
+                    onClick={logoutUser}
+                    variant="primary"
+                  >
+                    Logout
+                  </Button>
+                </>
+              )
+          }
         </div>
       </div>
     </nav>

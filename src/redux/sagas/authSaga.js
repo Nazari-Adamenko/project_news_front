@@ -5,7 +5,7 @@ import {
 import api from '../../api/api';
 
 import { USER_DATA } from '../constants';
-import { gotUsers, cannotBedRequest } from '../actions';
+import { gotUsers, cannotBadRequest } from '../actions';
 
 function* createUserSaga({ payload: values }) {
   const typeModal = yield select();
@@ -17,7 +17,7 @@ function* createUserSaga({ payload: values }) {
     }
     yield put(gotUsers(data.data.message));
   } catch ({ message }) {
-    yield put(cannotBedRequest(message));
+    yield put(cannotBadRequest(message));
   }
 }
 

@@ -9,10 +9,6 @@
     }
   },
   "rules": {
-    "react/jsx-props-no-spreading": [
-      {
-        "html": "enforce"
-      }
-    ]
+    
   }
 }

@@ -9,7 +9,9 @@ function TextField({ label, ...props }) {
       <label className="d-block" htmlFor={field.name}>{label}</label>
       <input
         className={`form-control shadow-none ${meta.touched && meta.error && 'is-invalid'}`}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...field}
+        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
         autoComplete="off"
       />

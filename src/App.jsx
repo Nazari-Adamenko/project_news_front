@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from './components/Header/Header';
-import ModalAuth from './components/ModalAuth/ModalAuth';
+import AuthModal from './components/ModalAuth/ModalAuth';
 import MainPage from './pages/MainPage/MainPage';
 
 export default function App() {
@@ -10,7 +10,7 @@ export default function App() {
       <Header />
       <div className="container">
         <MainPage />
-        <ModalAuth />
+        <AuthModal />
       </div>
     </>
   );
