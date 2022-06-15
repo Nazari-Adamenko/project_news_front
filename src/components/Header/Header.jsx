@@ -1,9 +1,11 @@
 import React, { memo } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
+import Image from 'react-bootstrap/Image';
+import { Button } from 'react-bootstrap';
 import ButtonAuthGroup from '../ButtonAuthGroup/ButtonAuthGroup';
 
-import { getModal } from '../../redux/actions';
+import { getModal, destroyUser } from '../../redux/actions';
 
 function Header() {
   const dispatch = useDispatch();
@@ -11,6 +13,13 @@ function Header() {
 
   const openModal = (name) => {
     dispatch(getModal({ status: true, type: name }));
+  };
+
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
+  const logoutUser = () => {
+    localStorage.removeItem('token');
+    dispatch(destroyUser());
   };
 
   return (
@@ -21,15 +30,20 @@ function Header() {
         </a>
         <p className="h1 m-0">News site</p>
         <div>
-          {
-            nameButton.map((element) => (
+          {!isLoggedIn
+            ? nameButton.map((element) => (
               <ButtonAuthGroup
                 openModal={openModal}
                 key={element}
                 name={element}
               />
             ))
-          }
+            : (
+              <>
+                <Image className="me-3 bg-dark text-white" roundedCircle alt="image" />
+                <Button type="button" onClick={logoutUser} variant="primary">Logout</Button>
+              </>
+            )}
         </div>
       </div>
     </nav>

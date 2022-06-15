@@ -19,13 +19,18 @@ export const getModal = (payload) => ({
   payload,
 });
 
-export const createUser = (payload) => ({
-  type: actionTypes.USER_REGISTRATION,
+export const getUser = (payload) => ({
+  type: actionTypes.USER_DATA,
   payload,
 });
 
 export const gotUsers = (payload) => ({
   type: actionTypes.AUTH_RECEIVED,
+  payload,
+});
+
+export const destroyUser = (payload) => ({
+  type: actionTypes.AUTH_LOGOUT,
   payload,
 });
 

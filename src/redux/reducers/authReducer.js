@@ -1,9 +1,9 @@
 import {
   GET_MODAL,
   AUTH_RECEIVED,
-  USER_REGISTRATION,
-  USER_AUTOROTATION,
+  USER_DATA,
   AUTH_FAILED,
+  AUTH_LOGOUT,
 } from '../constants';
 
 const initialState = {
@@ -11,6 +11,7 @@ const initialState = {
   typeModal: '',
   user: [],
   isFetching: '',
+  isLoggedIn: Boolean(localStorage.getItem('token')),
   error: '',
 };
 
@@ -27,15 +28,14 @@ export default function authReducer(state = initialState, action = {}) {
         ...state,
         typeModal: '',
         statusModal: false,
+        isLoggedIn: true,
       };
-    case USER_REGISTRATION:
+    case AUTH_LOGOUT:
       return {
         ...state,
-        user: [],
-        isFetching: true,
-        error: null,
+        isLoggedIn: false,
       };
-    case USER_AUTOROTATION:
+    case USER_DATA:
       return {
         ...state,
         user: [],

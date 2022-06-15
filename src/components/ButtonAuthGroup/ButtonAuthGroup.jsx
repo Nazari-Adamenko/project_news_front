@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 
 function ButtonAuthGroup({ name, openModal }) {
   return (
-    <Button type="button" onClick={() => openModal(name)} className="btn btn-primary me-1">{name}</Button>
+    <Button type="button" variant="primary" onClick={() => openModal(name)} className="me-1">{name}</Button>
   );
 }
 

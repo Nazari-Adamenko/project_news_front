@@ -1,60 +1,46 @@
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
-import * as yup from 'yup';
 
 import { Modal, Button } from 'react-bootstrap';
+import Alert from 'react-bootstrap/Alert';
+import { validateUserRegistration, validateUserAuthorization } from '../../helpers/validate';
 
-import { getModal, createUser } from '../../redux/actions';
+import { getModal, getUser } from '../../redux/actions';
 import TextField from '../TextField/TextField';
 
 function ModalAuth() {
   const dispatch = useDispatch();
   const statusModal = useSelector((state) => state.auth.statusModal);
   const typeModal = useSelector((state) => state.auth.typeModal);
-  const authFailed = useSelector((state) => state.auth.isFetching);
-  const a = 'awdawd'; 
+  const errorAuth = useSelector((state) => state.auth.error);
   const isAuth = typeModal === 'Sign Up';
   const closeModal = () => {
     dispatch(getModal({ status: false, type: '' }));
   };
 
-  const registrationUser = (event) => {
-    dispatch(createUser(event));
+  const initializationUser = (data) => {
+    dispatch(getUser(data));
   };
-  console.log(a);
-  const validate = yup.object({
-    name: yup.string()
-      .max(15, 'Must be 15 characters or less')
-      .required('Required'),
-    email: yup.string()
-      .email('Email is invalid')
-      .required('Email is required'),
-    password: yup.string()
-      .min(6, 'Password must be at least 6 characters')
-      .required('Password is required'),
-    confirmPassword: yup.string()
-      .oneOf([yup.ref('password'), null], 'Password must match')
-      .required('Confirm password is require'),
-  });
 
   return (
     <Formik
       initialValues={
-        {
-          name: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-        }
+        isAuth
+          ? {
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+          }
+          : {
+            email: '',
+            password: '',
+          }
       }
       validateOneBlur
-      onSubmit={
-        (values) => {
-          registrationUser(values);
-        }
-      }
-      validationSchema={validate}
+      onSubmit={initializationUser}
+      validationSchema={isAuth ? validateUserRegistration : validateUserAuthorization}
     >
       <Modal
         show={statusModal}
@@ -73,6 +59,7 @@ function ModalAuth() {
             <TextField label="Password" name="password" type="password" placeholder="Enter password" />
             {isAuth && <TextField label="Confirm Password" name="confirmPassword" type="password" placeholder="Repeat password" />}
           </Form>
+          {errorAuth && <Alert className="w-100 h-25" variant="danger">{errorAuth}</Alert>}
         </Modal.Body>
         <Modal.Footer>
           <Form>
