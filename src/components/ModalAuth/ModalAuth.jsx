@@ -12,6 +12,17 @@ import { toggleModal, getUser } from '../../redux/actions';
 import TextField from '../TextField/TextField';
 import { SIGN_UP } from '../../constants';
 
+const AuthInitialValue = {
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
+const RegInitialValue = {
+  email: '',
+  password: '',
+};
+
 function AuthModal() {
   const dispatch = useDispatch();
   const statusModal = useSelector((state) => state.auth.statusModal);
@@ -24,17 +35,6 @@ function AuthModal() {
     Body,
     Footer,
   } = Modal;
-  const formikInitialValue = isAuth
-    ? {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    }
-    : {
-      email: '',
-      password: '',
-    };
   const closeModal = () => {
     dispatch(toggleModal({ status: false, type: '' }));
   };
@@ -55,7 +55,7 @@ function AuthModal() {
         <Title>{typeModal}</Title>
       </Header>
       <Formik
-        initialValues={formikInitialValue}
+        initialValues={isAuth ? AuthInitialValue : RegInitialValue}
         validateOneBlur
         onSubmit={userInitialization}
         validationSchema={isAuth ? validateUserRegistration : validateUserAuthorization}

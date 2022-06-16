@@ -13,7 +13,7 @@ const YUP_REFERENCE = 'password';
 const MAXIMUM_NAME_LENGTH = 15;
 const MINIMUM_PASSWORD_LENGTH = 6;
 
-const validateForm = {
+const validateFormAuth = {
   email: yup
     .string()
     .email(MESSAGE_EMAIL_IS_INVALID)
@@ -24,18 +24,17 @@ const validateForm = {
     .required(MESSAGE_PASSWORD_REQUIRE),
 };
 
-export const validateUserRegistration = () => yup.object({
+const validateFormReg = {
   name: yup
     .string()
     .max(MAXIMUM_NAME_LENGTH, MESSAGE_MAX_CHARACTERS)
     .required(MESSAGE_REQUIRED),
-  validateForm,
+  validateFormAuth,
   confirmPassword: yup
     .string()
     .oneOf([yup.ref(YUP_REFERENCE), null], MESSAGE_CONFIRM_PASSWORD_ERROR)
     .required(MESSAGE_CONFIRM_PASSWORD_REQUIRE),
-});
+};
 
-export const validateUserAuthorization = () => yup.object({
-  validateForm,
-});
+export const validateUserRegistration = () => yup.object(validateFormReg);
+export const validateUserAuthorization = () => yup.object(validateFormAuth);
