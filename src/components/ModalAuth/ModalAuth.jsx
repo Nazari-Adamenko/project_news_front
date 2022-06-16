@@ -10,20 +10,31 @@ import { validateUserRegistration, validateUserAuthorization } from '../../helpe
 
 import { toggleModal, getUser } from '../../redux/actions';
 import TextField from '../TextField/TextField';
+import { SIGN_UP } from '../../constants';
 
 function AuthModal() {
   const dispatch = useDispatch();
   const statusModal = useSelector((state) => state.auth.statusModal);
   const typeModal = useSelector((state) => state.auth.typeModal);
   const errorAuth = useSelector((state) => state.auth.error);
+  const isAuth = typeModal === SIGN_UP;
   const {
     Header,
     Title,
     Body,
     Footer,
   } = Modal;
-
-  const isAuth = typeModal === 'Sign Up';
+  const formikInitialValue = isAuth
+    ? {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    }
+    : {
+      email: '',
+      password: '',
+    };
   const closeModal = () => {
     dispatch(toggleModal({ status: false, type: '' }));
   };
@@ -44,19 +55,7 @@ function AuthModal() {
         <Title>{typeModal}</Title>
       </Header>
       <Formik
-        initialValues={
-          isAuth
-            ? {
-              name: '',
-              email: '',
-              password: '',
-              confirmPassword: '',
-            }
-            : {
-              email: '',
-              password: '',
-            }
-        }
+        initialValues={formikInitialValue}
         validateOneBlur
         onSubmit={userInitialization}
         validationSchema={isAuth ? validateUserRegistration : validateUserAuthorization}
@@ -84,12 +83,12 @@ function AuthModal() {
               placeholder="Enter password"
             />
             {isAuth && (
-            <TextField
-              label="Confirm Password"
-              name="confirmPassword"
-              type="password"
-              placeholder="Repeat password"
-            />
+              <TextField
+                label="Confirm Password"
+                name="confirmPassword"
+                type="password"
+                placeholder="Repeat password"
+              />
             )}
           </Body>
           <Footer>

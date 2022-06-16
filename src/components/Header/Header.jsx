@@ -5,6 +5,7 @@ import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
 import { toggleModal, authLogout } from '../../redux/actions';
+import { SIGN_IN, SIGN_UP } from '../../constants';
 
 function Header() {
   const dispatch = useDispatch();
@@ -31,8 +32,8 @@ function Header() {
             !isLoggedIn
               ? (
                 <>
-                  <Button className="me-3" onClick={() => openModal('Sign In')}>Sign In</Button>
-                  <Button onClick={() => openModal('Sign Up')}>Sign Up</Button>
+                  <Button className="me-3" onClick={() => openModal(SIGN_IN)}>{SIGN_IN}</Button>
+                  <Button onClick={() => openModal(SIGN_UP)}>{SIGN_UP}</Button>
                 </>
               )
               : (

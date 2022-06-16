@@ -4,12 +4,15 @@ import {
 
 import api from '../../api/api';
 
-import { USER_DATA } from '../constants';
+import { SIGN_UP, USER_DATA } from '../../constants';
 import { gotUsers, cannotBadRequest } from '../actions';
+
+const AUTH_PATH = '/users';
+const LOGIN_PATH = '/users/sign_in';
 
 function* createUserSaga({ payload: values }) {
   const typeModal = yield select();
-  const choiceOfPath = typeModal.auth.typeModal === 'Sign Up' ? '/users' : '/users/sign_in';
+  const choiceOfPath = typeModal.auth.typeModal === SIGN_UP ? AUTH_PATH : LOGIN_PATH;
   try {
     const data = yield call(api.post, choiceOfPath, { user: values });
     if (data.headers.authorization) {

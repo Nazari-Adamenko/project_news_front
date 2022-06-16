@@ -4,7 +4,7 @@ import {
   USER_DATA,
   AUTH_FAILED,
   AUTH_LOGOUT,
-} from '../constants';
+} from '../../constants';
 
 const initialState = {
   statusModal: false,
