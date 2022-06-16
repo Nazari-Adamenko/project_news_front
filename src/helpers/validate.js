@@ -29,7 +29,14 @@ const validateFormReg = {
     .string()
     .max(MAXIMUM_NAME_LENGTH, MESSAGE_MAX_CHARACTERS)
     .required(MESSAGE_REQUIRED),
-  validateFormAuth,
+  email: yup
+    .string()
+    .email(MESSAGE_EMAIL_IS_INVALID)
+    .required(MESSAGE_EMAIL_REQUIRED),
+  password: yup
+    .string()
+    .min(MINIMUM_PASSWORD_LENGTH, MESSAGE_PASSWORD_ERROR)
+    .required(MESSAGE_PASSWORD_REQUIRE),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref(YUP_REFERENCE), null], MESSAGE_CONFIRM_PASSWORD_ERROR)
