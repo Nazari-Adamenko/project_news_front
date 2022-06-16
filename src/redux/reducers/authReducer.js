@@ -1,29 +1,53 @@
-import { MODAL_REGISTRATION, MODAL_AUTOROTATION, MODAL_CLOSE } from '../constants';
+import {
+  TOGGLE_MODAL,
+  AUTH_RECEIVED,
+  USER_DATA,
+  AUTH_FAILED,
+  AUTH_LOGOUT,
+} from '../../constants';
 
 const initialState = {
-  isOpen: false,
+  statusModal: false,
   typeModal: '',
+  user: {},
+  isFetching: null,
+  isLoggedIn: Boolean(localStorage.getItem('token')),
+  error: null,
 };
 
 export default function authReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case MODAL_REGISTRATION:
+    case TOGGLE_MODAL:
       return {
         ...state,
-        typeModal: 'registration',
-        isOpen: true,
+        typeModal: action.payload.type,
+        statusModal: action.payload.status,
       };
-    case MODAL_AUTOROTATION:
-      return {
-        ...state,
-        typeModal: 'autorotation',
-        isOpen: true,
-      };
-    case MODAL_CLOSE:
+    case AUTH_RECEIVED:
       return {
         ...state,
         typeModal: '',
-        isOpen: false,
+        statusModal: false,
+        isLoggedIn: true,
+      };
+    case AUTH_LOGOUT:
+      return {
+        ...state,
+        isLoggedIn: false,
+      };
+    case USER_DATA:
+      return {
+        ...state,
+        user: {},
+        isFetching: true,
+        error: null,
+      };
+    case AUTH_FAILED:
+      return {
+        ...state,
+        user: {},
+        isFetching: false,
+        error: action.error,
       };
     default:
       return state;

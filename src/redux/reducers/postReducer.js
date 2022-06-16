@@ -1,4 +1,4 @@
-import { POSTS_REQUESTED, POSTS_RECEIVED, POSTS_FAILED } from '../constants';
+import { POSTS_REQUESTED, POSTS_RECEIVED, POSTS_FAILED } from '../../constants';
 
 const initialState = {
   posts: [],

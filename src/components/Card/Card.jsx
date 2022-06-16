@@ -22,7 +22,11 @@ function Card({ title, content, author }) {
 Card.propTypes = {
   title: string.isRequired,
   content: string.isRequired,
-  author: string.isRequired,
+  author: string,
+};
+
+Card.defaultProps = {
+  author: '',
 };
 
 export default memo(Card);

@@ -1,24 +1,24 @@
-import React, { useEffect, memo } from 'react';
+import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Button from '../Button/Button';
+import Image from 'react-bootstrap/Image';
+import Button from 'react-bootstrap/Button';
 
-import { getModalRegistration, getModalAutorotation } from '../../redux/actions';
+import { toggleModal, authLogout } from '../../redux/actions';
+import { SIGN_IN, SIGN_UP } from '../../constants';
 
 function Header() {
   const dispatch = useDispatch();
-  const nameButton = ['Sign In', 'Sign Up'];
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-  const openModal = (type) => {
-    type === nameButton[0]
-      ? dispatch(getModalRegistration())
-        : dispatch(getModalAutorotation()),
+  const openModal = (name) => {
+    dispatch(toggleModal({ status: true, type: name }));
   };
 
-  const {
-    // isOpen,
-    typeModal,
-  } = useSelector((state) => state);
+  const logoutUser = () => {
+    localStorage.removeItem('token');
+    dispatch(authLogout());
+  };
 
   return (
     <nav className="navbar bg-light">
@@ -29,14 +29,29 @@ function Header() {
         <p className="h1 m-0">News site</p>
         <div>
           {
-            nameButton.map((element) => (
-              <Button
-                actionButton={openModal}
-                type={typeModal}
-                key={element}
-                name={element}
-              />
-            ))
+            !isLoggedIn
+              ? (
+                <>
+                  <Button className="me-3" onClick={() => openModal(SIGN_IN)}>{SIGN_IN}</Button>
+                  <Button onClick={() => openModal(SIGN_UP)}>{SIGN_UP}</Button>
+                </>
+              )
+              : (
+                <>
+                  <Image
+                    className="me-3 bg-dark text-white"
+                    roundedCircle
+                    alt="image"
+                  />
+                  <Button
+                    type="button"
+                    onClick={logoutUser}
+                    variant="primary"
+                  >
+                    Logout
+                  </Button>
+                </>
+              )
           }
         </div>
       </div>

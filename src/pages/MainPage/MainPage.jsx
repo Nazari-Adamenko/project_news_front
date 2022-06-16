@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Card from '../../components/Card/Card';
 import Spinner from '../../components/Spinner/Spinner';
 import Message from '../../components/Message/Message';
-import './MainPage.css';
 
 import { getPosts } from '../../redux/actions';
 
@@ -27,7 +26,7 @@ function MainPage() {
   }
 
   return (
-    <div className="d-flex flex-wrap">
+    <div className="d-flex flex-wrap gap-5 pt-3 pb-3">
       {posts.map(({
         id,
         title,

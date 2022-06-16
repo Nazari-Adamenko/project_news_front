@@ -1,13 +1,10 @@
 import React, { memo } from 'react';
 
+import ProgressBar from 'react-bootstrap/ProgressBar';
+
 function Spinner() {
-  const spinnerStyle = 'progress-bar progress-bar-striped progress-bar-animated';
   return (
-    <div className="progress">
-      <div className={spinnerStyle} role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-        Loading...
-      </div>
-    </div>
+    <ProgressBar animated now={100} label="Loading" />
   );
 }
 
