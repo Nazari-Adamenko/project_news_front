@@ -19,8 +19,8 @@ function* createUserSaga({ payload: values }) {
       localStorage.setItem('token', data.headers.authorization);
     }
     yield put(gotUsers(data.data.message));
-  } catch ({ message }) {
-    yield put(cannotBadRequest(message));
+  } catch (e) {
+    yield put(cannotBadRequest(e.message));
   }
 }
 

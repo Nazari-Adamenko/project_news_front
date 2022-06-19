@@ -2,6 +2,8 @@ import React, { memo } from 'react';
 import { ErrorMessage, useField } from 'formik';
 import { string } from 'prop-types';
 
+import './TextField.css';
+
 function TextField({ label, ...props }) {
   const [field, meta] = useField(props);
   return (
@@ -13,7 +15,7 @@ function TextField({ label, ...props }) {
         {...props}
         autoComplete="off"
       />
-      <ErrorMessage className="mb-3" name={field.name} />
+      <div className="error-message text-danger"><ErrorMessage name={field.name} /></div>
     </>
   );
 }
