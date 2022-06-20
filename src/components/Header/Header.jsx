@@ -1,15 +1,21 @@
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 
 import { toggleModal, authLogout } from '../../redux/actions';
-import { SIGN_IN, SIGN_UP } from '../../constants';
+import {
+  SIGN_IN,
+  SIGN_UP,
+  ROUT_PATH_USER,
+  ROUT_PATH_MAIN,
+} from '../../constants';
 
 import './Header.css';
 
 function Header() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
@@ -18,8 +24,12 @@ function Header() {
   };
 
   const logoutUser = () => {
-    localStorage.removeItem('token');
     dispatch(authLogout());
+    navigate(ROUT_PATH_MAIN);
+  };
+
+  const followLink = () => {
+    navigate(ROUT_PATH_USER);
   };
 
   return (
@@ -40,7 +50,12 @@ function Header() {
               )
               : (
                 <div className="d-flex">
-                  <div className="user-avatar" />
+                  <div
+                    onClick={followLink}
+                    onKeyPress={() => {}}
+                    role="presentation"
+                    className="user-avatar"
+                  />
                   <Button
                     type="button"
                     onClick={logoutUser}

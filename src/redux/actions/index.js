@@ -29,12 +29,25 @@ export const gotUsers = (payload) => ({
   payload,
 });
 
-export const authLogout = (payload) => ({
+export const authLogout = () => ({
   type: actionTypes.AUTH_LOGOUT,
-  payload,
 });
 
 export const cannotBadRequest = (error) => ({
   type: actionTypes.AUTH_FAILED,
+  error,
+});
+
+export const getDataUser = () => ({
+  type: actionTypes.DATA_USER_REQUESTED,
+});
+
+export const gotDataUser = (payload) => ({
+  type: actionTypes.DATA_USER_RECEIVED,
+  payload,
+});
+
+export const cannotDataUser = (error) => ({
+  type: actionTypes.DATA_USER_FAILED,
   error,
 });

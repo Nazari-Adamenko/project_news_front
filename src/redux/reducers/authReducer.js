@@ -11,7 +11,6 @@ const initialState = {
   typeModal: '',
   user: {},
   isFetching: null,
-  message: '',
   isLoggedIn: Boolean(localStorage.getItem('token')),
   error: null,
 };
@@ -23,7 +22,6 @@ export default function authReducer(state = initialState, action = {}) {
         ...state,
         typeModal: action.payload.type,
         statusModal: action.payload.status,
-        message: '',
       };
     case AUTH_RECEIVED:
       return {
@@ -31,7 +29,7 @@ export default function authReducer(state = initialState, action = {}) {
         typeModal: '',
         statusModal: false,
         isLoggedIn: true,
-        message: action.payload,
+
       };
     case AUTH_LOGOUT:
       return {

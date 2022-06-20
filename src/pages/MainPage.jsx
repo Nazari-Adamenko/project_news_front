@@ -1,7 +1,7 @@
 import React, { useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import Card from '../components/Card/Card';
+import Card from '../components/Card/Card';
 import Spinner from '../components/Spinner/Spinner';
 import Message from '../components/Message/Message';
 
@@ -14,7 +14,7 @@ function MainPage() {
     dispatch(getPosts());
   }, [dispatch]);
 
-  // const { posts } = useSelector((state) => state.posts);
+  const { posts } = useSelector((state) => state.posts);
   const { error } = useSelector((state) => state.posts);
   const { isFetching } = useSelector((state) => state.posts);
 
@@ -27,8 +27,7 @@ function MainPage() {
 
   return (
     <div className="d-flex flex-wrap gap-5 pt-3 pb-3">
-      <h1>MainPage</h1>
-      {/* {posts.map(({
+      {posts.map(({
         id,
         title,
         content,
@@ -42,7 +41,7 @@ function MainPage() {
           tag={tag}
           author={userId}
         />
-      ))} */}
+      ))}
     </div>
   );
 }

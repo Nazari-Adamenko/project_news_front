@@ -1,7 +1,6 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
-import { useNavigate } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -25,12 +24,10 @@ const RegInitialValue = {
 };
 
 function AuthModal() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const statusModal = useSelector((state) => state.auth.statusModal);
   const typeModal = useSelector((state) => state.auth.typeModal);
   const errorAuth = useSelector((state) => state.auth.error);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isAuth = typeModal === SIGN_UP;
   const {
     Header,
@@ -41,10 +38,6 @@ function AuthModal() {
   const closeModal = () => {
     dispatch(toggleModal({ status: false, type: '' }));
   };
-
-  useEffect(() => (isLoggedIn
-    ? navigate('user')
-    : navigate('/')), [isLoggedIn]);
 
   const userInitialization = (data) => {
     dispatch(getUser(data));
@@ -70,12 +63,12 @@ function AuthModal() {
         <Form>
           <Body>
             {isAuth && (
-            <TextField
-              label="First Name"
-              name="name"
-              type="text"
-              placeholder="Enter name"
-            />
+              <TextField
+                label="First Name"
+                name="name"
+                type="text"
+                placeholder="Enter name"
+              />
             )}
             <TextField
               label="Email"
@@ -90,17 +83,22 @@ function AuthModal() {
               placeholder="Enter password"
             />
             {isAuth && (
-            <TextField
-              label="Confirm Password"
-              name="confirmPassword"
-              type="password"
-              placeholder="Repeat password"
-            />
+              <TextField
+                label="Confirm Password"
+                name="confirmPassword"
+                type="password"
+                placeholder="Repeat password"
+              />
             )}
           </Body>
           <Footer>
             {errorAuth && <Alert className="flex-grow-1" variant="danger">{errorAuth}</Alert>}
-            <Button className="btn btn-blue me-3" type="submit">{isAuth ? 'Register' : 'Login'}</Button>
+            <Button
+              className="btn btn-blue me-3"
+              type="submit"
+            >
+              {isAuth ? 'Register' : 'Login'}
+            </Button>
             <Button className="btn btn-blue" onClick={closeModal}>Close</Button>
           </Footer>
         </Form>

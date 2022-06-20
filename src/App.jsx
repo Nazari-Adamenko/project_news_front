@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import Layout from './components/Layout/Layout';
 import MainPage from './pages/MainPage';
-import UserPage from './pages/UserPage';
+import UserPage from './pages/UserPage/UserPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {

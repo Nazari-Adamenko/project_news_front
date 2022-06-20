@@ -9,5 +9,12 @@ export const AUTH_RECEIVED = 'AUTH_RECEIVED';
 export const AUTH_FAILED = 'AUTH_FAILED';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
+export const DATA_USER_REQUESTED = 'DATA_USER_REQUESTED';
+export const DATA_USER_RECEIVED = 'DATA_USER_RECEIVED';
+export const DATA_USER_FAILED = 'DATA_USER_FAILED';
+
 export const SIGN_IN = 'Sign In';
 export const SIGN_UP = 'Sign Up';
+
+export const ROUT_PATH_MAIN = '/';
+export const ROUT_PATH_USER = 'user';
