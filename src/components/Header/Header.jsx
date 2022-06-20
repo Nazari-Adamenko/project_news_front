@@ -1,11 +1,13 @@
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 
 import { toggleModal, authLogout } from '../../redux/actions';
 import { SIGN_IN, SIGN_UP } from '../../constants';
+
+import './Header.css';
 
 function Header() {
   const dispatch = useDispatch();
@@ -23,26 +25,22 @@ function Header() {
   return (
     <nav className="navbar bg-light">
       <div className="container">
-        <a className="navbar-brand" href="/">
+        <Link className="navbar-brand" to="/">
           News hell
-        </a>
+        </Link>
         <p className="h1 m-0">News site</p>
         <div>
           {
             !isLoggedIn
               ? (
                 <>
-                  <Button className="me-3" onClick={() => openModal(SIGN_IN)}>{SIGN_IN}</Button>
+                  <Button className="me-3 " onClick={() => openModal(SIGN_IN)}>{SIGN_IN}</Button>
                   <Button onClick={() => openModal(SIGN_UP)}>{SIGN_UP}</Button>
                 </>
               )
               : (
-                <>
-                  <Image
-                    className="me-3 bg-dark text-white"
-                    roundedCircle
-                    alt="image"
-                  />
+                <div className="d-flex">
+                  <div className="user-avatar" />
                   <Button
                     type="button"
                     onClick={logoutUser}
@@ -50,7 +48,7 @@ function Header() {
                   >
                     Logout
                   </Button>
-                </>
+                </div>
               )
           }
         </div>

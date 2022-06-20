@@ -1,0 +1,14 @@
+.user-avatar{
+  margin-right: 10px;
+  height: 50px;
+  width: 50px;
+  border: 1px solid gray;
+  border-radius: 50%;
+  background-image: url(../../assets/img/avatar-user-default.svg);
+  cursor: pointer;
+}
+
+.user-avatar:hover{
+  transition: all 0.5s ease;
+  box-shadow: 0 0.5rem 1rem rgba(4, 0, 255, 0.15);
+}
