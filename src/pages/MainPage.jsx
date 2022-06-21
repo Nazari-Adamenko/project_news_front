@@ -27,21 +27,23 @@ function MainPage() {
 
   return (
     <div className="d-flex flex-wrap gap-5 pt-3 pb-3">
-      {posts.map(({
-        id,
-        title,
-        content,
-        tag,
-        userId,
-      }) => (
-        <Card
-          key={id}
-          title={title}
-          content={content}
-          tag={tag}
-          author={userId}
-        />
-      ))}
+      {typeof posts !== 'string'
+        ? posts.map(({
+          id,
+          title,
+          content,
+          tag,
+          user,
+        }) => (
+          <Card
+            key={id}
+            title={title}
+            content={content}
+            tag={tag}
+            author={user}
+          />
+        ))
+        : <div className="text-center h1 w-100">{posts}</div>}
     </div>
   );
 }

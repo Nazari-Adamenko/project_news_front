@@ -29,7 +29,7 @@ function Header() {
   };
 
   const followLink = () => {
-    navigate(ROUT_PATH_USER);
+    navigate(`${ROUT_PATH_USER}/authUser`);
   };
 
   return (

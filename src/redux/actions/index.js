@@ -38,8 +38,9 @@ export const cannotBadRequest = (error) => ({
   error,
 });
 
-export const getDataUser = () => ({
+export const getDataUser = (payload) => ({
   type: actionTypes.DATA_USER_REQUESTED,
+  payload,
 });
 
 export const gotDataUser = (payload) => ({

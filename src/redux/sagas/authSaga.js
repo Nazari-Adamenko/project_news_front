@@ -1,5 +1,8 @@
 import {
-  takeEvery, put, call, select,
+  takeEvery,
+  put,
+  call,
+  select,
 } from 'redux-saga/effects';
 
 import api from '../../api/api';
