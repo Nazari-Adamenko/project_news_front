@@ -17,11 +17,11 @@ function* createUserSaga({ payload: values }) {
   const typeModal = yield select();
   const choiceOfPath = typeModal.auth.typeModal === SIGN_UP ? AUTH_PATH : LOGIN_PATH;
   try {
-    const data = yield call(api.post, choiceOfPath, { user: values });
-    if (data.headers.authorization) {
-      localStorage.setItem('token', data.headers.authorization);
+    const { data, headers } = yield call(api.post, choiceOfPath, { user: values });
+    if (headers.authorization) {
+      localStorage.setItem('token', headers.authorization);
     }
-    yield put(gotUsers(data.data.message));
+    yield put(gotUsers(data.message));
   } catch (e) {
     yield put(cannotBadRequest(e.message));
   }

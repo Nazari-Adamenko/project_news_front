@@ -18,3 +18,4 @@ export const SIGN_UP = 'Sign Up';
 
 export const ROUT_PATH_MAIN = '/';
 export const ROUT_PATH_USER = 'user';
+export const ROUT_PATH_AUTH_USER = 'authUser';

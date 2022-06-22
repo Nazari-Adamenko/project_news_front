@@ -10,6 +10,7 @@ import {
   SIGN_UP,
   ROUT_PATH_USER,
   ROUT_PATH_MAIN,
+  ROUT_PATH_AUTH_USER,
 } from '../../constants';
 
 import './Header.css';
@@ -29,7 +30,7 @@ function Header() {
   };
 
   const followLink = () => {
-    navigate(`${ROUT_PATH_USER}/authUser`);
+    navigate(`${ROUT_PATH_USER}/${ROUT_PATH_AUTH_USER}`);
   };
 
   return (

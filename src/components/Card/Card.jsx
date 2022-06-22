@@ -12,7 +12,7 @@ function Card({ title, content, author }) {
     <div className="card">
       <img src={newsImg} className="card-img-top" alt="failed to load" />
       <div className="card-body d-flex flex-column justify-content-between">
-        <p className="h3 m-0">{title}</p>
+        <p className="card-title h3 text-uppercase text-truncate m-0">{title}</p>
         <p className="card-text">{content}</p>
       </div>
       <div className="px-2">
