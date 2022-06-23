@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import Header from '../Header/Header';
-import AuthModal from '../AuthModal/ModalAuth';
+import AuthModal from '../AuthModal/AuthModal';
 
 import './Layout.css';
 
