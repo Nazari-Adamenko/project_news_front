@@ -8,9 +8,9 @@ import { toggleModal, authLogout } from '../../redux/actions';
 import {
   SIGN_IN,
   SIGN_UP,
-  ROUT_PATH_USER,
-  ROUT_PATH_MAIN,
-  ROUT_PATH_AUTH_USER,
+  ROUT_TO_USER,
+  ROUT_TO_MAIN,
+  ROUT_TO_AUTH_USER,
 } from '../../constants';
 
 import './Header.css';
@@ -26,11 +26,11 @@ function Header() {
 
   const logoutUser = () => {
     dispatch(authLogout());
-    navigate(ROUT_PATH_MAIN);
+    navigate(ROUT_TO_MAIN);
   };
 
   const followLink = () => {
-    navigate(`${ROUT_PATH_USER}/${ROUT_PATH_AUTH_USER}`);
+    navigate(`${ROUT_TO_USER}/${ROUT_TO_AUTH_USER}`);
   };
 
   return (

@@ -1,7 +1,7 @@
 import React, { useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Card from '../components/Card/Card';
+import ShowPosts from '../components/ShowPosts/ShowPosts';
 import Spinner from '../components/Spinner/Spinner';
 import Message from '../components/Message/Message';
 
@@ -14,9 +14,9 @@ function MainPage() {
     dispatch(getPosts());
   }, [dispatch]);
 
-  const { posts } = useSelector((state) => state.posts);
-  const { error } = useSelector((state) => state.posts);
-  const { isFetching } = useSelector((state) => state.posts);
+  const posts = useSelector((state) => state.posts.posts);
+  const error = useSelector((state) => state.posts.error);
+  const isFetching = useSelector((state) => state.posts.isFetching);
 
   if (isFetching) {
     return <Spinner />;
@@ -27,23 +27,9 @@ function MainPage() {
 
   return (
     <div className="d-flex flex-wrap gap-5 pt-3 pb-3">
-      {typeof posts !== 'string'
-        ? posts.map(({
-          id,
-          title,
-          content,
-          tag,
-          user,
-        }) => (
-          <Card
-            key={id}
-            title={title}
-            content={content}
-            tag={tag}
-            author={user}
-          />
-        ))
-        : <div className="text-center h1 w-100">{posts}</div>}
+      {posts !== null
+        ? <ShowPosts posts={posts} />
+        : <div className="text-center h1 w-100">Not posts</div>}
     </div>
   );
 }

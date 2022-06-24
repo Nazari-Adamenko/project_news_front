@@ -17,7 +17,7 @@ function Card({ title, content, author }) {
       </div>
       <div className="px-2">
         {author.name && (
-        <Link className="" to={`user/${author.id}`}>
+        <Link to={`user/${author.id}`}>
           Author:
           {' '}
           {author.name}
