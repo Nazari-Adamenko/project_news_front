@@ -1,36 +1,44 @@
 import {
-  DATA_USER_FAILED,
-  DATA_USER_RECEIVED,
-  DATA_USER_REQUESTED,
+  USER_DATA_FAILED,
+  USER_DATA_RECEIVED,
+  USER_DATA_AUTH_REQUESTED,
+  USER_DATA_REQUESTED,
 } from '../../constants';
 
 const initialState = {
   isFetching: false,
-  dataUser: {},
+  userData: {},
   error: null,
 };
 
 export default function userReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case DATA_USER_REQUESTED:
+    case USER_DATA_AUTH_REQUESTED:
       return {
         ...state,
         isFetching: true,
-        dataUser: {},
+        userData: {},
         error: null,
       };
-    case DATA_USER_RECEIVED:
+    case USER_DATA_REQUESTED:
+      return {
+        ...state,
+        isFetching: true,
+        userData: {},
+        error: null,
+      };
+    case USER_DATA_RECEIVED:
       return {
         ...state,
         isFetching: false,
-        dataUser: action.payload,
+        userData: action.payload,
         error: null,
       };
-    case DATA_USER_FAILED:
+    case USER_DATA_FAILED:
       return {
         ...state,
         isFetching: false,
-        dataUser: {},
+        userData: {},
         error: action.error,
       };
     default:

@@ -38,22 +38,27 @@ export const cannotBadRequest = (error) => ({
   error,
 });
 
-export const getDataUser = (payload) => ({
-  type: actionTypes.DATA_USER_REQUESTED,
+export const getUserData = (payload) => ({
+  type: actionTypes.USER_DATA_REQUESTED,
   payload,
 });
 
-export const gotDataUser = (payload) => ({
-  type: actionTypes.DATA_USER_RECEIVED,
+export const getUserDataAuth = (payload) => ({
+  type: actionTypes.USER_DATA_AUTH_REQUESTED,
   payload,
 });
 
-export const cannotDataUser = (error) => ({
-  type: actionTypes.DATA_USER_FAILED,
+export const gotUserData = (payload) => ({
+  type: actionTypes.USER_DATA_RECEIVED,
+  payload,
+});
+
+export const cannotUserData = (error) => ({
+  type: actionTypes.USER_DATA_FAILED,
   error,
 });
 
 export const callNewsCreationPage = (payload) => ({
-  type: actionTypes.CALL_NEWS_CREATION_PAGE,
+  type: actionTypes.STATUS_NEWS_CREATION_PAGE,
   payload,
 });
