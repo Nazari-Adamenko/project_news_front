@@ -52,3 +52,8 @@ export const cannotDataUser = (error) => ({
   type: actionTypes.DATA_USER_FAILED,
   error,
 });
+
+export const callNewsCreationPage = (payload) => ({
+  type: actionTypes.CALL_NEWS_CREATION_PAGE,
+  payload,
+});
