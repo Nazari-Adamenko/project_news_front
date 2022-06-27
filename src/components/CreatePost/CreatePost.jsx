@@ -25,11 +25,11 @@ function CreatePost() {
   };
 
   const userInitialization = (data) => {
+    // eslint-disable-next-line no-param-reassign
+    data.content = initialValue.content;
+    // eslint-disable-next-line no-param-reassign
+    data.image = initialValue.image;
     console.log(data);
-    // // eslint-disable-next-line no-param-reassign
-    // data.content = initialValue.content;
-    // // eslint-disable-next-line no-param-reassign
-    // data.image = initialValue.image;
   };
 
   return (

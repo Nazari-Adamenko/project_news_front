@@ -20,7 +20,7 @@ function UserPage() {
   const userAuthId = useSelector((state) => state.auth.authUser);
   const userData = useSelector((state) => state.dataUser.userData);
   const userId = useParams();
-  const initialButtonBar = userData.id === userAuthId;
+  const initialButtonBar = userData.id === userAuthId.id;
 
   const showPageRedactionNews = () => {
     dispatch(callNewsCreationPage(true));
