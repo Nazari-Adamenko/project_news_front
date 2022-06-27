@@ -9,5 +9,16 @@ export const AUTH_RECEIVED = 'AUTH_RECEIVED';
 export const AUTH_FAILED = 'AUTH_FAILED';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
+export const USER_DATA_AUTH_REQUESTED = 'USER_DATA_AUTH_REQUESTED';
+export const USER_DATA_REQUESTED = 'USER_DATA_REQUESTED';
+export const USER_DATA_RECEIVED = 'USER_DATA_RECEIVED';
+export const USER_DATA_FAILED = 'USER_DATA_FAILED';
+
+export const STATUS_NEWS_CREATION_PAGE = 'STATUS_NEWS_CREATION_PAGE';
+
 export const SIGN_IN = 'Sign In';
 export const SIGN_UP = 'Sign Up';
+
+export const ROUT_TO_MAIN = '/';
+export const ROUT_TO_USER = 'user';
+export const ROUT_TO_AUTH_USER = 'authUser';

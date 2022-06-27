@@ -29,12 +29,36 @@ export const gotUsers = (payload) => ({
   payload,
 });
 
-export const authLogout = (payload) => ({
+export const authLogout = () => ({
   type: actionTypes.AUTH_LOGOUT,
-  payload,
 });
 
 export const cannotBadRequest = (error) => ({
   type: actionTypes.AUTH_FAILED,
   error,
+});
+
+export const getUserData = (payload) => ({
+  type: actionTypes.USER_DATA_REQUESTED,
+  payload,
+});
+
+export const getUserDataAuth = (payload) => ({
+  type: actionTypes.USER_DATA_AUTH_REQUESTED,
+  payload,
+});
+
+export const gotUserData = (payload) => ({
+  type: actionTypes.USER_DATA_RECEIVED,
+  payload,
+});
+
+export const cannotUserData = (error) => ({
+  type: actionTypes.USER_DATA_FAILED,
+  error,
+});
+
+export const callNewsCreationPage = (payload) => ({
+  type: actionTypes.STATUS_NEWS_CREATION_PAGE,
+  payload,
 });

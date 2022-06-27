@@ -1,0 +1,7 @@
+.data-user__avatar{
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-image: url(../../assets/img/avatar-user-default.svg);
+  border: 1px solid black;
+}

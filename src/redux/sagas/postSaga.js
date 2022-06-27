@@ -6,8 +6,8 @@ import { gotPosts, cannotGetNews } from '../actions';
 
 function* getPostSaga() {
   try {
-    const { data: payload } = yield call(api.get, '/posts');
-    yield put(gotPosts(payload));
+    const { data } = yield call(api.get, '/posts');
+    yield put(gotPosts(data));
   } catch ({ message }) {
     yield put(cannotGetNews(message));
   }

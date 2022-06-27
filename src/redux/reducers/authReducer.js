@@ -9,9 +9,8 @@ import {
 const initialState = {
   statusModal: false,
   typeModal: '',
-  user: {},
+  authUser: {},
   isFetching: null,
-  message: '',
   isLoggedIn: Boolean(localStorage.getItem('token')),
   error: null,
 };
@@ -23,32 +22,32 @@ export default function authReducer(state = initialState, action = {}) {
         ...state,
         typeModal: action.payload.type,
         statusModal: action.payload.status,
-        message: '',
       };
     case AUTH_RECEIVED:
       return {
         ...state,
         typeModal: '',
+        authUser: action.payload,
         statusModal: false,
         isLoggedIn: true,
-        message: action.payload,
       };
     case AUTH_LOGOUT:
       return {
         ...state,
+        authUser: {},
         isLoggedIn: false,
       };
     case USER_DATA:
       return {
         ...state,
-        user: {},
+        authUser: {},
         isFetching: true,
         error: null,
       };
     case AUTH_FAILED:
       return {
         ...state,
-        user: {},
+        authUser: {},
         isFetching: false,
         error: action.error,
       };
