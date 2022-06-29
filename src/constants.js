@@ -1,7 +1,7 @@
 export const POSTS_REQUESTED = 'POSTS_REQUESTED';
 export const POSTS_RECEIVED = 'POSTS_RECEIVED';
 export const POSTS_FAILED = 'POSTS_FAILED';
-export const CALL_NEWS_CREATION_PAGE = 'CALL_NEWS_CREATION_PAGE';
+export const TOGGLE_POST_MODAL = 'TOGGLE_POST_MODAL';
 export const CREATE_POST_REQUESTED = 'CREATE_POSTS_REQUESTED';
 export const CREATE_POST_RECEIVED = 'CREATE_POST_RECEIVED';
 export const CREATE_POST_FAILED = 'CREATE_POST_FAILED';
@@ -23,6 +23,5 @@ export const SIGN_UP = 'Sign Up';
 
 export const ROUT_TO_MAIN = '/';
 export const ROUT_TO_USER = 'user';
-export const ROUT_TO_AUTH_USER = 'authUser';
 
 export const URL_FOR_POST = '/posts';

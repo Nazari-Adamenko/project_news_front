@@ -29,8 +29,8 @@ export const cannotCreatePost = (error) => ({
   error,
 });
 
-export const callNewsCreationPage = (payload) => ({
-  type: actionTypes.CALL_NEWS_CREATION_PAGE,
+export const openCreateModal = (payload) => ({
+  type: actionTypes.TOGGLE_POST_MODAL,
   payload,
 });
 

@@ -4,31 +4,33 @@ import { useParams } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import {
-  callNewsCreationPage,
+  openCreateModal,
   getUserDataAuth,
   getUser,
   getUserData,
 } from '../../redux/actions';
 
 import ShowPosts from '../../components/ShowPosts/ShowPosts';
-import { ROUT_TO_AUTH_USER } from '../../constants';
+import Notification from '../../components/Notification/Notification';
 
 import './UserPage.css';
 
 function UserPage() {
   const dispatch = useDispatch();
-  const userAuthId = useSelector((state) => state.auth.authUser);
+  const authUser = useSelector((state) => state.auth.authUser);
   const userData = useSelector((state) => state.dataUser.userData);
+  const isFetching = useSelector((state) => state.dataUser.isFetching);
+  const error = useSelector((state) => state.dataUser.error);
   const userId = useParams();
-  const initialButtonBar = userData.id === userAuthId.id;
+  const initialButtonBar = userData.id === authUser.id;
 
   const showPageRedactionNews = () => {
-    dispatch(callNewsCreationPage(true));
+    dispatch(openCreateModal(true));
   };
 
   useEffect(() => {
     dispatch(getUser());
-    if (userId.id !== ROUT_TO_AUTH_USER) {
+    if (userId.id !== authUser.id) {
       dispatch(getUserData(userId));
     } else dispatch(getUserDataAuth());
   }, [userId.id]);
@@ -42,7 +44,14 @@ function UserPage() {
   return (
     <div className="row">
       <div className="news-user col-9 d-flex flex-wrap gap-5 pt-3 pb-3">
-        {userPosts()}
+        {isFetching
+          ? (
+            <Notification
+              isFetching={isFetching}
+              error={error}
+            />
+          )
+          : userPosts()}
       </div>
       <div className="data-user d-flex flex-column align-items-center p-3 gap-4 bg-light mt-3 col">
         <div className="data-user__avatar" />

@@ -2,7 +2,7 @@ import {
   POSTS_REQUESTED,
   POSTS_RECEIVED,
   POSTS_FAILED,
-  CALL_NEWS_CREATION_PAGE,
+  TOGGLE_POST_MODAL,
   CREATE_POST_REQUESTED,
   CREATE_POST_RECEIVED,
   CREATE_POST_FAILED,
@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   posts: [],
-  isShowCreateNews: false,
+  isShowCreatedNews: false,
   isFetching: false,
   error: null,
 };
@@ -35,7 +35,6 @@ export default function postsReducer(state = initialState, action = {}) {
       return {
         ...state,
         isFetching: false,
-        posts: [],
         error: action.error,
       };
     case CREATE_POST_REQUESTED:
@@ -50,7 +49,7 @@ export default function postsReducer(state = initialState, action = {}) {
         ...state,
         isFetching: false,
         itsCreated: action.payload,
-        isShowCreateNews: false,
+        isShowCreatedNews: false,
         error: null,
       };
     case CREATE_POST_FAILED:
@@ -60,10 +59,10 @@ export default function postsReducer(state = initialState, action = {}) {
         itsCreated: {},
         error: action.error,
       };
-    case CALL_NEWS_CREATION_PAGE:
+    case TOGGLE_POST_MODAL:
       return {
         ...state,
-        isShowCreateNews: action.payload,
+        isShowCreatedNews: action.payload,
       };
     default:
       return state;

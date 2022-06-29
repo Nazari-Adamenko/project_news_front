@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Formik, Form } from 'formik';
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -8,10 +9,9 @@ import {
   FormControl,
   FormLabel,
 } from 'react-bootstrap';
-import { Formik, Form } from 'formik';
 
 import {
-  callNewsCreationPage,
+  openCreateModal,
   createPost,
   cannotCreatePost,
 } from '../../redux/actions';
@@ -24,12 +24,18 @@ const initialValue = {
   content: '',
 };
 
-function CreatePost() {
+function CreatePostModal() {
   const dispatch = useDispatch();
-  const isOpenModal = useSelector((state) => state.posts.isShowCreateNews);
+  const isOpenModal = useSelector((state) => state.posts.isShowCreatedNews);
   const errorCreate = useSelector((state) => state.posts.error);
+  const {
+    Header,
+    Body,
+    Footer,
+  } = Modal;
+
   const closeModal = () => {
-    dispatch(callNewsCreationPage(false));
+    dispatch(openCreateModal(false));
     dispatch(cannotCreatePost(null));
   };
 
@@ -56,11 +62,11 @@ function CreatePost() {
       onHide={closeModal}
       show={isOpenModal}
     >
-      <Modal.Header closeButton>
+      <Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           <p>Create News</p>
         </Modal.Title>
-      </Modal.Header>
+      </Header>
       <Formik
         onSubmit={userInitialization}
         initialValues={initialValue}
@@ -68,7 +74,7 @@ function CreatePost() {
         validationSchema={validateFormCreatePost}
       >
         <Form>
-          <Modal.Body>
+          <Body>
             <TextField
               label="Title"
               name="title"
@@ -99,16 +105,16 @@ function CreatePost() {
               placeholder="Add image"
               onChange={getPostImage}
             />
-          </Modal.Body>
-          <Modal.Footer>
+          </Body>
+          <Footer>
             {errorCreate && <Alert className="flex-grow-1" variant="danger">{errorCreate}</Alert>}
             <Button className="btn btn-blue me-3" type="submit">Create News</Button>
             <Button onClick={closeModal}>Close</Button>
-          </Modal.Footer>
+          </Footer>
         </Form>
       </Formik>
     </Modal>
   );
 }
 
-export default memo(CreatePost);
+export default memo(CreatePostModal);

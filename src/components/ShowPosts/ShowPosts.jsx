@@ -30,7 +30,7 @@ ShowPosts.propTypes = {
 };
 
 ShowPosts.defaultProps = {
-  author: {},
+  props: {},
 };
 
 export default memo(ShowPosts);
