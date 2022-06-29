@@ -3,33 +3,49 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { FormControl, InputGroup } from 'react-bootstrap';
+import Alert from 'react-bootstrap/Alert';
+import {
+  FormControl,
+  FormLabel,
+} from 'react-bootstrap';
 import { Formik, Form } from 'formik';
 
-import { callNewsCreationPage } from '../../redux/actions';
+import {
+  callNewsCreationPage,
+  createPost,
+  cannotCreatePost,
+} from '../../redux/actions';
 import TextField from '../TextField/TextField';
+import { validateFormCreatePost } from '../../helpers/validate';
 
 const initialValue = {
   title: '',
-  content: '',
   tags: '',
-  image: '',
+  content: '',
 };
 
 function CreatePost() {
   const dispatch = useDispatch();
-  const isOpenModal = useSelector((state) => state.createNews.isShowCreateNews);
-
+  const isOpenModal = useSelector((state) => state.posts.isShowCreateNews);
+  const errorCreate = useSelector((state) => state.posts.error);
   const closeModal = () => {
     dispatch(callNewsCreationPage(false));
+    dispatch(cannotCreatePost(null));
   };
 
   const userInitialization = (data) => {
-    // eslint-disable-next-line no-param-reassign
     data.content = initialValue.content;
-    // eslint-disable-next-line no-param-reassign
     data.image = initialValue.image;
-    console.log(data);
+    dispatch(createPost(data));
+  };
+
+  const getPostImage = (value) => {
+    const [files] = value.target.files;
+    initialValue.image = files;
+  };
+
+  const getContentTextarea = (value) => {
+    initialValue.content = value.target.value;
   };
 
   return (
@@ -49,6 +65,7 @@ function CreatePost() {
         onSubmit={userInitialization}
         initialValues={initialValue}
         validateOneBlur
+        validationSchema={validateFormCreatePost}
       >
         <Form>
           <Modal.Body>
@@ -57,35 +74,34 @@ function CreatePost() {
               name="title"
               type="text"
               placeholder="Enter title"
+              as="input"
             />
             <TextField
               label="Tags"
               name="tags"
               type="text"
               placeholder="Enter tags"
+              as="input"
             />
-            <InputGroup className="flex-column">
-              <TextField
-                label="Content News"
-                className="w-100 mb-3"
-                type="text"
-                name="content"
-                placeholder="Enter the text of your news"
-                onChange={(event) => { initialValue.content = event.target.value; }}
-                as="textarea"
-                aria-label="With textarea"
-              />
-            </InputGroup>
+            <FormLabel className="m-0">Content news</FormLabel>
+            <FormControl
+              name="content"
+              type="text"
+              placeholder="Enter the text of your news"
+              onChange={getContentTextarea}
+              as="textarea"
+            />
+            <FormLabel className="m-0">News picture</FormLabel>
             <FormControl
               label="Image"
               name="image"
               type="file"
               placeholder="Add image"
-              // eslint-disable-next-line prefer-destructuring
-              onChange={(event) => { initialValue.image = event.target.files[0]; }}
+              onChange={getPostImage}
             />
           </Modal.Body>
           <Modal.Footer>
+            {errorCreate && <Alert className="flex-grow-1" variant="danger">{errorCreate}</Alert>}
             <Button className="btn btn-blue me-3" type="submit">Create News</Button>
             <Button onClick={closeModal}>Close</Button>
           </Modal.Footer>

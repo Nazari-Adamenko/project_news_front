@@ -8,9 +8,9 @@ import { cannotBadRequest } from '../actions';
 const LOGOUT_PATH = '/users/sign_out';
 
 function* createLoggedOutSaga() {
+  localStorage.removeItem('token');
   try {
     yield call(api.delete, LOGOUT_PATH);
-    localStorage.removeItem('token');
   } catch (e) {
     yield put(cannotBadRequest(e.message));
   }

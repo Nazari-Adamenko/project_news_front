@@ -14,6 +14,26 @@ export const cannotGetNews = (error) => ({
   error,
 });
 
+export const createPost = (payload) => ({
+  type: actionTypes.CREATE_POST_REQUESTED,
+  payload,
+});
+
+export const createGotPost = (payload) => ({
+  type: actionTypes.CREATE_POST_RECEIVED,
+  payload,
+});
+
+export const cannotCreatePost = (error) => ({
+  type: actionTypes.CREATE_POST_FAILED,
+  error,
+});
+
+export const callNewsCreationPage = (payload) => ({
+  type: actionTypes.CALL_NEWS_CREATION_PAGE,
+  payload,
+});
+
 export const toggleModal = (payload) => ({
   type: actionTypes.TOGGLE_MODAL,
   payload,
@@ -56,9 +76,4 @@ export const gotUserData = (payload) => ({
 export const cannotUserData = (error) => ({
   type: actionTypes.USER_DATA_FAILED,
   error,
-});
-
-export const callNewsCreationPage = (payload) => ({
-  type: actionTypes.STATUS_NEWS_CREATION_PAGE,
-  payload,
 });

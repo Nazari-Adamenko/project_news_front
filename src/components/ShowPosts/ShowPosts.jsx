@@ -10,6 +10,7 @@ function ShowPosts({ posts }) {
       title,
       content,
       tags,
+      image,
       user,
     }) => (
       <Card
@@ -18,6 +19,7 @@ function ShowPosts({ posts }) {
         content={content}
         tag={tags}
         author={user}
+        image={image}
       />
     ))
   );

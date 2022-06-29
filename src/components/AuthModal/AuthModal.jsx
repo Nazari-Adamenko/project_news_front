@@ -8,7 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import Alert from 'react-bootstrap/Alert';
 import { validateUserRegistration, validateUserAuthorization } from '../../helpers/validate';
 
-import { toggleModal, getUser } from '../../redux/actions';
+import { toggleModal, getUser, cannotGetNews } from '../../redux/actions';
 import TextField from '../TextField/TextField';
 import { SIGN_UP } from '../../constants';
 
@@ -37,6 +37,7 @@ function AuthModal() {
   } = Modal;
   const closeModal = () => {
     dispatch(toggleModal({ status: false, type: '' }));
+    dispatch(cannotGetNews(null));
   };
 
   const userInitialization = (data) => {
