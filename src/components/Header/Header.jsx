@@ -18,7 +18,7 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const authUser = useSelector((state) => state.dataUser.userData);
+  const currentUser = useSelector((state) => state.userData.currentUser);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -36,7 +36,7 @@ function Header() {
   };
 
   const followLink = () => {
-    navigate(`${ROUT_TO_USER}/${authUser.id}`);
+    navigate(`${ROUT_TO_USER}/${currentUser.id}`);
   };
 
   return (

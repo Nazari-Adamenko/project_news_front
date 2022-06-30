@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   isFetching: false,
-  userData: {},
+  currentUser: {},
   error: null,
 };
 
@@ -17,28 +17,28 @@ export default function userReducer(state = initialState, action = {}) {
       return {
         ...state,
         isFetching: true,
-        userData: {},
+        currentUser: {},
         error: null,
       };
     case USER_DATA_REQUESTED:
       return {
         ...state,
         isFetching: true,
-        userData: {},
+        currentUser: {},
         error: null,
       };
     case USER_DATA_RECEIVED:
       return {
         ...state,
         isFetching: false,
-        userData: action.payload,
+        currentUser: action.payload,
         error: null,
       };
     case USER_DATA_FAILED:
       return {
         ...state,
         isFetching: false,
-        userData: {},
+        currentUser: {},
         error: action.error,
       };
     default:

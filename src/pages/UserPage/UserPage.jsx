@@ -4,69 +4,67 @@ import { useParams } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import {
-  openCreateModal,
-  getUserDataAuth,
+  togglePostModal,
   getUser,
   getUserData,
 } from '../../redux/actions';
 
 import ShowPosts from '../../components/ShowPosts/ShowPosts';
-import Notification from '../../components/Notification/Notification';
+import Spinner from '../../components/Spinner/Spinner';
+import Message from '../../components/Message/Message';
 
 import './UserPage.css';
 
 function UserPage() {
   const dispatch = useDispatch();
   const authUser = useSelector((state) => state.auth.authUser);
-  const userData = useSelector((state) => state.dataUser.userData);
-  const isFetching = useSelector((state) => state.dataUser.isFetching);
-  const error = useSelector((state) => state.dataUser.error);
+  const currentUser = useSelector((state) => state.userData.currentUser);
+  const isFetching = useSelector((state) => state.userData.isFetching);
+  const error = useSelector((state) => state.userData.error);
   const userId = useParams();
-  const initialButtonBar = userData.id === authUser.id;
+  const isInitialButtonBar = currentUser.id === authUser.id;
 
   const showPageRedactionNews = () => {
-    dispatch(openCreateModal(true));
+    dispatch(togglePostModal(true));
   };
 
   useEffect(() => {
     dispatch(getUser());
-    if (userId.id !== authUser.id) {
-      dispatch(getUserData(userId));
-    } else dispatch(getUserDataAuth());
+    dispatch(getUserData(userId));
   }, [userId.id]);
 
+  if (isFetching) {
+    return <Spinner />;
+  }
+  if (error) {
+    return <Message text={error} />;
+  }
+
   function userPosts() {
-    return userData?.posts?.length
-      ? <ShowPosts posts={userData?.posts} />
+    return currentUser?.posts?.length
+      ? <ShowPosts posts={currentUser?.posts} />
       : <div className="text-center h1 w-100">Not news</div>;
   }
 
   return (
     <div className="row">
       <div className="news-user col-9 d-flex flex-wrap gap-5 pt-3 pb-3">
-        {isFetching
-          ? (
-            <Notification
-              isFetching={isFetching}
-              error={error}
-            />
-          )
-          : userPosts()}
+        {userPosts()}
       </div>
       <div className="data-user d-flex flex-column align-items-center p-3 gap-4 bg-light mt-3 col">
         <div className="data-user__avatar" />
         <div className="data-user__name text-start w-100">
           <b>name:</b>
           {' '}
-          <em>{userData?.name}</em>
+          <em>{currentUser?.name}</em>
         </div>
         <div className="data-user__email text-start w-100">
           <b>email:</b>
           {' '}
-          <em>{userData?.email}</em>
+          <em>{currentUser?.email}</em>
         </div>
         <div className="data-user__button-bar justify-content-between w-100 d-flex">
-          {initialButtonBar
+          {isInitialButtonBar
             && (
               <>
                 <Button className="btn btn-blue">Edit Profile</Button>

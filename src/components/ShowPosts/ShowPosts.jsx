@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { shape } from 'prop-types';
+import { arrayOf, shape } from 'prop-types';
 
 import Card from '../Card/Card';
 
@@ -26,11 +26,11 @@ function ShowPosts({ posts }) {
 }
 
 ShowPosts.propTypes = {
-  props: shape({}),
+  posts: arrayOf(shape({})),
 };
 
 ShowPosts.defaultProps = {
-  props: {},
+  posts: null,
 };
 
 export default memo(ShowPosts);

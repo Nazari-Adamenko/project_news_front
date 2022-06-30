@@ -1,10 +1,11 @@
 import React, { useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Message from '../components/Message/Message';
 import ShowPosts from '../components/ShowPosts/ShowPosts';
+import Spinner from '../components/Spinner/Spinner';
 
 import { getPosts } from '../redux/actions';
-import Notification from '../components/Notification/Notification';
 
 function MainPage() {
   const dispatch = useDispatch();
@@ -17,22 +18,18 @@ function MainPage() {
   const error = useSelector((state) => state.posts.error);
   const isFetching = useSelector((state) => state.posts.isFetching);
 
-  function allPosts() {
-    return posts !== null
-      ? <ShowPosts posts={posts} />
-      : <div className="text-center h1 w-100">Not posts</div>;
+  if (isFetching) {
+    return <Spinner />;
+  }
+  if (error) {
+    return <Message text={error} />;
   }
 
   return (
     <div className="d-flex flex-wrap gap-5 pt-3 pb-3">
-      {isFetching
-        ? (
-          <Notification
-            isFetching={isFetching}
-            error={error}
-          />
-        )
-        : allPosts()}
+      {posts !== null
+        ? <ShowPosts posts={posts} />
+        : <div className="text-center h1 w-100">Not posts</div>}
     </div>
   );
 }

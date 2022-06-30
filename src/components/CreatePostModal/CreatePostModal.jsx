@@ -11,7 +11,7 @@ import {
 } from 'react-bootstrap';
 
 import {
-  openCreateModal,
+  togglePostModal,
   createPost,
   cannotCreatePost,
 } from '../../redux/actions';
@@ -26,16 +26,17 @@ const initialValue = {
 
 function CreatePostModal() {
   const dispatch = useDispatch();
-  const isOpenModal = useSelector((state) => state.posts.isShowCreatedNews);
-  const errorCreate = useSelector((state) => state.posts.error);
+  const isShowCreatedNews = useSelector((state) => state.posts.isShowCreatedNews);
+  const error = useSelector((state) => state.posts.error);
   const {
     Header,
     Body,
     Footer,
+    Title,
   } = Modal;
 
   const closeModal = () => {
-    dispatch(openCreateModal(false));
+    dispatch(togglePostModal(false));
     dispatch(cannotCreatePost(null));
   };
 
@@ -60,12 +61,12 @@ function CreatePostModal() {
       aria-labelledby="contained-modal-title-vcenter"
       centered
       onHide={closeModal}
-      show={isOpenModal}
+      show={isShowCreatedNews}
     >
       <Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Title id="contained-modal-title-vcenter">
           <p>Create News</p>
-        </Modal.Title>
+        </Title>
       </Header>
       <Formik
         onSubmit={userInitialization}
@@ -107,7 +108,7 @@ function CreatePostModal() {
             />
           </Body>
           <Footer>
-            {errorCreate && <Alert className="flex-grow-1" variant="danger">{errorCreate}</Alert>}
+            {error && <Alert className="flex-grow-1" variant="danger">{error}</Alert>}
             <Button className="btn btn-blue me-3" type="submit">Create News</Button>
             <Button onClick={closeModal}>Close</Button>
           </Footer>

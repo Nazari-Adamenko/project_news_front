@@ -29,7 +29,7 @@ export const cannotCreatePost = (error) => ({
   error,
 });
 
-export const openCreateModal = (payload) => ({
+export const togglePostModal = (payload) => ({
   type: actionTypes.TOGGLE_POST_MODAL,
   payload,
 });
