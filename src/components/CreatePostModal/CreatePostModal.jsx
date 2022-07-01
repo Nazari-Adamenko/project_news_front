@@ -13,7 +13,6 @@ import {
 import {
   togglePostModal,
   createPost,
-  cannotCreatePost,
 } from '../../redux/actions';
 import TextField from '../TextField/TextField';
 import { validateFormCreatePost } from '../../helpers/validate';
@@ -37,7 +36,6 @@ function CreatePostModal() {
 
   const closeModal = () => {
     dispatch(togglePostModal(false));
-    dispatch(cannotCreatePost(null));
   };
 
   const userInitialization = (data) => {

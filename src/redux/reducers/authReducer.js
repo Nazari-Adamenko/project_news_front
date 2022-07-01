@@ -22,6 +22,7 @@ export default function authReducer(state = initialState, action = {}) {
         ...state,
         typeModal: action.payload.type,
         statusModal: action.payload.status,
+        error: null,
       };
     case AUTH_RECEIVED:
       return {
@@ -47,7 +48,6 @@ export default function authReducer(state = initialState, action = {}) {
     case AUTH_FAILED:
       return {
         ...state,
-        authUser: {},
         isFetching: false,
         error: action.error,
       };

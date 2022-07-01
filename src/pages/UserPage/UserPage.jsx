@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import {
   togglePostModal,
-  getUser,
   getUserData,
 } from '../../redux/actions';
 
@@ -17,21 +16,23 @@ import './UserPage.css';
 
 function UserPage() {
   const dispatch = useDispatch();
-  const authUser = useSelector((state) => state.auth.authUser);
-  const currentUser = useSelector((state) => state.userData.currentUser);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const currentUserToken = useSelector((state) => state.userData.currentUserToken);
+  const currentUserId = useSelector((state) => state.userData.currentUserId);
   const isFetching = useSelector((state) => state.userData.isFetching);
   const error = useSelector((state) => state.userData.error);
   const userId = useParams();
-  const isInitialButtonBar = currentUser.id === authUser.id;
+  const isInitial = currentUserId.id === currentUserToken.id;
+
+  const currentUser = isInitial ? currentUserToken : currentUserId;
 
   const showPageRedactionNews = () => {
     dispatch(togglePostModal(true));
   };
 
   useEffect(() => {
-    dispatch(getUser());
     dispatch(getUserData(userId));
-  }, [userId.id]);
+  }, [userId]);
 
   if (isFetching) {
     return <Spinner />;
@@ -64,7 +65,7 @@ function UserPage() {
           <em>{currentUser?.email}</em>
         </div>
         <div className="data-user__button-bar justify-content-between w-100 d-flex">
-          {isInitialButtonBar
+          {(isInitial && isLoggedIn)
             && (
               <>
                 <Button className="btn btn-blue">Edit Profile</Button>

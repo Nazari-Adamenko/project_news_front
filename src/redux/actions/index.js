@@ -68,6 +68,11 @@ export const getUserDataAuth = (payload) => ({
   payload,
 });
 
+export const gotUserDataAuth = (payload) => ({
+  type: actionTypes.USER_DATA_AUTH_RECEIVED,
+  payload,
+});
+
 export const gotUserData = (payload) => ({
   type: actionTypes.USER_DATA_RECEIVED,
   payload,

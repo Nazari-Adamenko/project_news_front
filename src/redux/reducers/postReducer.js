@@ -63,6 +63,7 @@ export default function postsReducer(state = initialState, action = {}) {
       return {
         ...state,
         isShowCreatedNews: action.payload,
+        error: null,
       };
     default:
       return state;

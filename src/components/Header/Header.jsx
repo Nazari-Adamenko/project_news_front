@@ -18,13 +18,14 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const currentUser = useSelector((state) => state.userData.currentUser);
+  const authUser = useSelector((state) => state.auth.authUser);
+  const currentUserToken = useSelector((state) => state.userData.currentUserToken);
 
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(getUserDataAuth());
     }
-  }, []);
+  }, [authUser]);
 
   const openModal = (name) => {
     dispatch(toggleModal({ status: true, type: name }));
@@ -36,7 +37,7 @@ function Header() {
   };
 
   const followLink = () => {
-    navigate(`${ROUT_TO_USER}/${currentUser.id}`);
+    navigate(`${ROUT_TO_USER}/${currentUserToken.id}`);
   };
 
   return (
