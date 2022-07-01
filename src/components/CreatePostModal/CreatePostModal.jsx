@@ -2,12 +2,16 @@ import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 
-import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import {
   FormControl,
   FormLabel,
+  Modal,
+  ModalHeader,
+  ModalTitle,
+  ModalBody,
+  ModalFooter,
 } from 'react-bootstrap';
 
 import {
@@ -27,26 +31,20 @@ function CreatePostModal() {
   const dispatch = useDispatch();
   const isShowCreatedNews = useSelector((state) => state.posts.isShowCreatedNews);
   const error = useSelector((state) => state.posts.error);
-  const {
-    Header,
-    Body,
-    Footer,
-    Title,
-  } = Modal;
 
   const closeModal = () => {
     dispatch(togglePostModal(false));
   };
 
   const userInitialization = (data) => {
-    data.content = initialValue.content;
-    data.image = initialValue.image;
-    dispatch(createPost(data));
+    const postData = { ...data };
+    postData.content = initialValue.content;
+    postData.image = initialValue.image;
+    dispatch(createPost(postData));
   };
 
   const getPostImage = (value) => {
-    const [files] = value.target.files;
-    initialValue.image = files;
+    initialValue.image = value.target.files;
   };
 
   const getContentTextarea = (value) => {
@@ -61,11 +59,11 @@ function CreatePostModal() {
       onHide={closeModal}
       show={isShowCreatedNews}
     >
-      <Header closeButton>
-        <Title id="contained-modal-title-vcenter">
+      <ModalHeader closeButton>
+        <ModalTitle id="contained-modal-title-vcenter">
           <p>Create News</p>
-        </Title>
-      </Header>
+        </ModalTitle>
+      </ModalHeader>
       <Formik
         onSubmit={userInitialization}
         initialValues={initialValue}
@@ -73,7 +71,7 @@ function CreatePostModal() {
         validationSchema={validateFormCreatePost}
       >
         <Form>
-          <Body>
+          <ModalBody>
             <TextField
               label="Title"
               name="title"
@@ -104,12 +102,12 @@ function CreatePostModal() {
               placeholder="Add image"
               onChange={getPostImage}
             />
-          </Body>
-          <Footer>
+          </ModalBody>
+          <ModalFooter>
             {error && <Alert className="flex-grow-1" variant="danger">{error}</Alert>}
             <Button className="btn btn-blue me-3" type="submit">Create News</Button>
             <Button onClick={closeModal}>Close</Button>
-          </Footer>
+          </ModalFooter>
         </Form>
       </Formik>
     </Modal>

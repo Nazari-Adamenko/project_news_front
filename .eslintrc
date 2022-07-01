@@ -14,8 +14,7 @@
       {
         "html": "ignore"
       }
-    ],
-    "no-param-reassign": 0
+    ]
   }
 }
 

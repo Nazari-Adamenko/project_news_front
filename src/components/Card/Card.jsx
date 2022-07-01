@@ -8,7 +8,11 @@ import newsImg from '../../assets/img/news_default_img.png';
 import './Card.css';
 
 function Card({
-  title, content, author, image, tag,
+  title,
+  content,
+  author,
+  image,
+  tag,
 }) {
   const backgroundImagePost = image.url
     ? `${process.env.REACT_APP_API_URL}${image.url}`
