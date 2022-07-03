@@ -46,10 +46,16 @@ const validateFormReg = {
 const validateFormCreate = {
   title: yup
     .string()
+    .trim()
     .max(MAXIMUM_LENGTH, MESSAGE_MAX_CHARACTERS)
     .required(MESSAGE_REQUIRED),
   tags: yup
     .string()
+    .trim()
+    .required(MESSAGE_REQUIRED),
+  content: yup
+    .string()
+    .trim()
     .required(MESSAGE_REQUIRED),
 };
 

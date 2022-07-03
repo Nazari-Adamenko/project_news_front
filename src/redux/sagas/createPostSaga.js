@@ -13,9 +13,9 @@ const statusCreated = 'Created';
 function* createPostSaga({ payload }) {
   const formData = new FormData();
   formData.append('image', payload.image);
-  formData.append('title', payload.title);
-  formData.append('tags', payload.tags);
-  formData.append('content', payload.content);
+  formData.append('title', payload.data.title);
+  formData.append('tags', payload.data.tags);
+  formData.append('content', payload.data.content);
   try {
     const data = yield call(
       api.post,

@@ -1,12 +1,10 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 
 import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import {
-  FormControl,
-  FormLabel,
   Modal,
   ModalHeader,
   ModalTitle,
@@ -18,10 +16,10 @@ import {
   togglePostModal,
   createPost,
 } from '../../redux/actions';
-import TextField from '../TextField/TextField';
 import { validateFormCreatePost } from '../../helpers/validate';
+import TextField from '../TextField/TextField';
 
-const initialValue = {
+const initialObject = {
   title: '',
   tags: '',
   content: '',
@@ -29,6 +27,7 @@ const initialValue = {
 
 function CreatePostModal() {
   const dispatch = useDispatch();
+  const [image, setImage] = useState(0);
   const isShowCreatedNews = useSelector((state) => state.posts.isShowCreatedNews);
   const error = useSelector((state) => state.posts.error);
 
@@ -36,19 +35,13 @@ function CreatePostModal() {
     dispatch(togglePostModal(false));
   };
 
-  const userInitialization = (data) => {
-    const postData = { ...data };
-    postData.content = initialValue.content;
-    postData.image = initialValue.image;
-    dispatch(createPost(postData));
-  };
-
   const getPostImage = (value) => {
-    initialValue.image = value.target.files;
+    setImage(value.target.files[0]);
   };
 
-  const getContentTextarea = (value) => {
-    initialValue.content = value.target.value;
+  const userInitialization = (data, actions) => {
+    actions.setSubmitting(false);
+    dispatch(createPost({ data, image }));
   };
 
   return (
@@ -65,50 +58,51 @@ function CreatePostModal() {
         </ModalTitle>
       </ModalHeader>
       <Formik
+        initialValues={initialObject}
         onSubmit={userInitialization}
-        initialValues={initialValue}
-        validateOneBlur
         validationSchema={validateFormCreatePost}
+        validateOneBlur
       >
-        <Form>
-          <ModalBody>
-            <TextField
-              label="Title"
-              name="title"
-              type="text"
-              placeholder="Enter title"
-              as="input"
-            />
-            <TextField
-              label="Tags"
-              name="tags"
-              type="text"
-              placeholder="Enter tags"
-              as="input"
-            />
-            <FormLabel className="m-0">Content news</FormLabel>
-            <FormControl
-              name="content"
-              type="text"
-              placeholder="Enter the text of your news"
-              onChange={getContentTextarea}
-              as="textarea"
-            />
-            <FormLabel className="m-0">News picture</FormLabel>
-            <FormControl
-              label="Image"
-              name="image"
-              type="file"
-              placeholder="Add image"
-              onChange={getPostImage}
-            />
-          </ModalBody>
-          <ModalFooter>
-            {error && <Alert className="flex-grow-1" variant="danger">{error}</Alert>}
-            <Button className="btn btn-blue me-3" type="submit">Create News</Button>
-            <Button onClick={closeModal}>Close</Button>
-          </ModalFooter>
-        </Form>
+        {({ handleSubmit, handleChange, handleReset }) => (
+          <Form onSubmit={handleSubmit} onReset={handleReset}>
+            <ModalBody>
+              <TextField
+                label="Title"
+                name="title"
+                type="text"
+                onChange={handleChange}
+                placeholder="Enter title"
+              />
+              <TextField
+                label="Tags"
+                name="tags"
+                type="text"
+                onChange={handleChange}
+                placeholder="Enter title"
+              />
+              <TextField
+                label="Content"
+                name="content"
+                type="text"
+                onChange={handleChange}
+                placeholder="Enter title"
+                as="textarea"
+              />
+              <TextField
+                label="News picture"
+                name="image"
+                type="file"
+                placeholder="Add image"
+                onChange={getPostImage}
+              />
+            </ModalBody>
+            <ModalFooter>
+              {error && <Alert className="flex-grow-1" variant="danger">{error}</Alert>}
+              <Button className="btn btn-blue me-3" type="submit">Create News</Button>
+              <Button onClick={closeModal}>Close</Button>
+            </ModalFooter>
+          </Form>
+        )}
       </Formik>
     </Modal>
   );
