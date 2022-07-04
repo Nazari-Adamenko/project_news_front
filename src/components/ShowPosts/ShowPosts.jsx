@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { shape } from 'prop-types';
+import { arrayOf, shape } from 'prop-types';
 
 import Card from '../Card/Card';
 
@@ -10,6 +10,7 @@ function ShowPosts({ posts }) {
       title,
       content,
       tags,
+      image,
       user,
     }) => (
       <Card
@@ -18,17 +19,18 @@ function ShowPosts({ posts }) {
         content={content}
         tag={tags}
         author={user}
+        image={image}
       />
     ))
   );
 }
 
 ShowPosts.propTypes = {
-  props: shape({}),
+  posts: arrayOf(shape({})),
 };
 
 ShowPosts.defaultProps = {
-  author: {},
+  posts: null,
 };
 
 export default memo(ShowPosts);

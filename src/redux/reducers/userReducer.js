@@ -3,11 +3,13 @@ import {
   USER_DATA_RECEIVED,
   USER_DATA_AUTH_REQUESTED,
   USER_DATA_REQUESTED,
+  USER_DATA_AUTH_RECEIVED,
 } from '../../constants';
 
 const initialState = {
   isFetching: false,
-  userData: {},
+  currentUserToken: {},
+  currentUserId: {},
   error: null,
 };
 
@@ -17,28 +19,34 @@ export default function userReducer(state = initialState, action = {}) {
       return {
         ...state,
         isFetching: true,
-        userData: {},
+        currentUserToken: {},
         error: null,
       };
     case USER_DATA_REQUESTED:
       return {
         ...state,
         isFetching: true,
-        userData: {},
+        currentUserId: {},
+        error: null,
+      };
+    case USER_DATA_AUTH_RECEIVED:
+      return {
+        ...state,
+        isFetching: false,
+        currentUserToken: action.payload,
         error: null,
       };
     case USER_DATA_RECEIVED:
       return {
         ...state,
         isFetching: false,
-        userData: action.payload,
+        currentUserId: action.payload,
         error: null,
       };
     case USER_DATA_FAILED:
       return {
         ...state,
         isFetching: false,
-        userData: {},
         error: action.error,
       };
     default:

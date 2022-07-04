@@ -1,9 +1,9 @@
 import React, { useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import Message from '../components/Message/Message';
 import ShowPosts from '../components/ShowPosts/ShowPosts';
 import Spinner from '../components/Spinner/Spinner';
-import Message from '../components/Message/Message';
 
 import { getPosts } from '../redux/actions';
 
@@ -12,7 +12,7 @@ function MainPage() {
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [dispatch]);
+  }, []);
 
   const posts = useSelector((state) => state.posts.posts);
   const error = useSelector((state) => state.posts.error);

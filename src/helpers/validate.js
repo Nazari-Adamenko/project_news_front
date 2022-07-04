@@ -10,7 +10,7 @@ const MESSAGE_CONFIRM_PASSWORD_ERROR = 'Password must match';
 const MESSAGE_CONFIRM_PASSWORD_REQUIRE = 'Confirm password is require';
 const YUP_REFERENCE = 'password';
 
-const MAXIMUM_NAME_LENGTH = 15;
+const MAXIMUM_LENGTH = 15;
 const MINIMUM_PASSWORD_LENGTH = 6;
 
 const validateFormAuth = {
@@ -27,7 +27,7 @@ const validateFormAuth = {
 const validateFormReg = {
   name: yup
     .string()
-    .max(MAXIMUM_NAME_LENGTH, MESSAGE_MAX_CHARACTERS)
+    .max(MAXIMUM_LENGTH, MESSAGE_MAX_CHARACTERS)
     .required(MESSAGE_REQUIRED),
   email: yup
     .string()
@@ -43,5 +43,22 @@ const validateFormReg = {
     .required(MESSAGE_CONFIRM_PASSWORD_REQUIRE),
 };
 
+const validateFormCreate = {
+  title: yup
+    .string()
+    .trim()
+    .max(MAXIMUM_LENGTH, MESSAGE_MAX_CHARACTERS)
+    .required(MESSAGE_REQUIRED),
+  tags: yup
+    .string()
+    .trim()
+    .required(MESSAGE_REQUIRED),
+  content: yup
+    .string()
+    .trim()
+    .required(MESSAGE_REQUIRED),
+};
+
 export const validateUserRegistration = () => yup.object(validateFormReg);
 export const validateUserAuthorization = () => yup.object(validateFormAuth);
+export const validateFormCreatePost = () => yup.object(validateFormCreate);

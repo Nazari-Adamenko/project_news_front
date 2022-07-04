@@ -10,9 +10,10 @@ const LOGOUT_PATH = '/users/sign_out';
 function* createLoggedOutSaga() {
   try {
     yield call(api.delete, LOGOUT_PATH);
-    localStorage.removeItem('token');
   } catch (e) {
     yield put(cannotBadRequest(e.message));
+  } finally {
+    localStorage.removeItem('token');
   }
 }
 

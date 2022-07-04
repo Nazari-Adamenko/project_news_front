@@ -1,12 +1,12 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
 import api from '../../api/api';
 
-import { POSTS_REQUESTED } from '../../constants';
+import { POSTS_REQUESTED, URL_FOR_POST } from '../../constants';
 import { gotPosts, cannotGetNews } from '../actions';
 
 function* getPostSaga() {
   try {
-    const { data } = yield call(api.get, '/posts');
+    const { data } = yield call(api.get, URL_FOR_POST);
     yield put(gotPosts(data));
   } catch ({ message }) {
     yield put(cannotGetNews(message));

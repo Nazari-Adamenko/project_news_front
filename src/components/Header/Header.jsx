@@ -1,16 +1,15 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 
-import { toggleModal, authLogout } from '../../redux/actions';
+import { toggleModal, authLogout, getUserDataAuth } from '../../redux/actions';
 import {
   SIGN_IN,
   SIGN_UP,
   ROUT_TO_USER,
   ROUT_TO_MAIN,
-  ROUT_TO_AUTH_USER,
 } from '../../constants';
 
 import './Header.css';
@@ -19,6 +18,14 @@ function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const authUser = useSelector((state) => state.auth.authUser);
+  const currentUserToken = useSelector((state) => state.userData.currentUserToken);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(getUserDataAuth());
+    }
+  }, [authUser]);
 
   const openModal = (name) => {
     dispatch(toggleModal({ status: true, type: name }));
@@ -30,7 +37,7 @@ function Header() {
   };
 
   const followLink = () => {
-    navigate(`${ROUT_TO_USER}/${ROUT_TO_AUTH_USER}`);
+    navigate(`${ROUT_TO_USER}/${currentUserToken.id}`);
   };
 
   return (

@@ -3,11 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-
+import {
+  Modal,
+  ModalHeader,
+  ModalTitle,
+  ModalBody,
+  ModalFooter,
+} from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
-import { validateUserRegistration, validateUserAuthorization } from '../../helpers/validate';
 
+import { validateUserRegistration, validateUserAuthorization } from '../../helpers/validate';
 import { toggleModal, getUser } from '../../redux/actions';
 import TextField from '../TextField/TextField';
 import { SIGN_UP } from '../../constants';
@@ -29,12 +34,6 @@ function AuthModal() {
   const typeModal = useSelector((state) => state.auth.typeModal);
   const errorAuth = useSelector((state) => state.auth.error);
   const isAuth = typeModal === SIGN_UP;
-  const {
-    Header,
-    Title,
-    Body,
-    Footer,
-  } = Modal;
   const closeModal = () => {
     dispatch(toggleModal({ status: false, type: '' }));
   };
@@ -51,9 +50,9 @@ function AuthModal() {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Header closeButton>
-        <Title>{typeModal}</Title>
-      </Header>
+      <ModalHeader closeButton>
+        <ModalTitle>{typeModal}</ModalTitle>
+      </ModalHeader>
       <Formik
         initialValues={isAuth ? AuthInitialValue : RegInitialValue}
         validateOneBlur
@@ -61,7 +60,7 @@ function AuthModal() {
         validationSchema={isAuth ? validateUserRegistration : validateUserAuthorization}
       >
         <Form>
-          <Body>
+          <ModalBody>
             {isAuth && (
               <TextField
                 label="First Name"
@@ -90,8 +89,8 @@ function AuthModal() {
                 placeholder="Repeat password"
               />
             )}
-          </Body>
-          <Footer>
+          </ModalBody>
+          <ModalFooter>
             {errorAuth && <Alert className="flex-grow-1" variant="danger">{errorAuth}</Alert>}
             <Button
               className="btn btn-blue me-3"
@@ -100,7 +99,7 @@ function AuthModal() {
               {isAuth ? 'Register' : 'Login'}
             </Button>
             <Button className="btn btn-blue" onClick={closeModal}>Close</Button>
-          </Footer>
+          </ModalFooter>
         </Form>
       </Formik>
     </Modal>

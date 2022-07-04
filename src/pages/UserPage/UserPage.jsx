@@ -4,38 +4,46 @@ import { useParams } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import {
-  callNewsCreationPage,
-  getUserDataAuth,
-  getUser,
+  togglePostModal,
   getUserData,
 } from '../../redux/actions';
 
 import ShowPosts from '../../components/ShowPosts/ShowPosts';
-import { ROUT_TO_AUTH_USER } from '../../constants';
+import Spinner from '../../components/Spinner/Spinner';
+import Message from '../../components/Message/Message';
 
 import './UserPage.css';
 
 function UserPage() {
   const dispatch = useDispatch();
-  const userAuthId = useSelector((state) => state.auth.authUser);
-  const userData = useSelector((state) => state.dataUser.userData);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const currentUserToken = useSelector((state) => state.userData.currentUserToken);
+  const currentUserId = useSelector((state) => state.userData.currentUserId);
+  const isFetching = useSelector((state) => state.userData.isFetching);
+  const error = useSelector((state) => state.userData.error);
   const userId = useParams();
-  const initialButtonBar = userData.id === userAuthId;
+  const isInitial = currentUserId.id === currentUserToken.id;
+
+  const currentUser = isInitial ? currentUserToken : currentUserId;
 
   const showPageRedactionNews = () => {
-    dispatch(callNewsCreationPage(true));
+    dispatch(togglePostModal(true));
   };
 
   useEffect(() => {
-    dispatch(getUser());
-    if (userId.id !== ROUT_TO_AUTH_USER) {
-      dispatch(getUserData(userId));
-    } else dispatch(getUserDataAuth());
-  }, [userId.id]);
+    dispatch(getUserData(userId));
+  }, [userId]);
+
+  if (isFetching) {
+    return <Spinner />;
+  }
+  if (error) {
+    return <Message text={error} />;
+  }
 
   function userPosts() {
-    return userData?.posts?.length
-      ? <ShowPosts posts={userData?.posts} />
+    return currentUser?.posts?.length
+      ? <ShowPosts posts={currentUser?.posts} />
       : <div className="text-center h1 w-100">Not news</div>;
   }
 
@@ -49,15 +57,15 @@ function UserPage() {
         <div className="data-user__name text-start w-100">
           <b>name:</b>
           {' '}
-          <em>{userData?.name}</em>
+          <em>{currentUser?.name}</em>
         </div>
         <div className="data-user__email text-start w-100">
           <b>email:</b>
           {' '}
-          <em>{userData?.email}</em>
+          <em>{currentUser?.email}</em>
         </div>
         <div className="data-user__button-bar justify-content-between w-100 d-flex">
-          {initialButtonBar
+          {(isInitial && isLoggedIn)
             && (
               <>
                 <Button className="btn btn-blue">Edit Profile</Button>
