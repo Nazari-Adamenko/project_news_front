@@ -14,7 +14,8 @@
       {
         "html": "ignore"
       }
-    ]
+    ],
+    "extends": "eslint:recommended"
   }
 }
 
