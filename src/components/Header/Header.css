@@ -4,7 +4,6 @@
   width: 50px;
   border: 1px solid gray;
   border-radius: 50%;
-  background-image: url(../../assets/img/avatar-user-default.svg);
   cursor: pointer;
 }
 

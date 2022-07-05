@@ -13,6 +13,7 @@ import {
 } from '../../constants';
 
 import './Header.css';
+import userDefaultAvatar from '../../assets/img/avatar-user-default.svg';
 
 function Header() {
   const navigate = useNavigate();
@@ -58,11 +59,13 @@ function Header() {
               )
               : (
                 <div className="d-flex">
-                  <div
+                  <img
+                    src={userDefaultAvatar}
                     onClick={followLink}
                     onKeyPress={() => {}}
                     role="presentation"
                     className="user-avatar"
+                    alt="#"
                   />
                   <Button
                     type="button"

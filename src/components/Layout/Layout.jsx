@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import AuthModal from '../AuthModal/AuthModal';
-import CreatePostModal from '../CreatePostModal/CreatePostModal';
+import CreatePostModal from '../UserModalAction/UserModalAction';
 
 import './Layout.css';
 

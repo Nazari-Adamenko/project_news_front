@@ -13,21 +13,22 @@ import Spinner from '../../components/Spinner/Spinner';
 import Message from '../../components/Message/Message';
 
 import './UserPage.css';
+import userDefaultAvatar from '../../assets/img/avatar-user-default.svg';
 
 function UserPage() {
+  const userId = useParams();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const currentUserToken = useSelector((state) => state.userData.currentUserToken);
   const currentUserId = useSelector((state) => state.userData.currentUserId);
   const isFetching = useSelector((state) => state.userData.isFetching);
   const error = useSelector((state) => state.userData.error);
-  const userId = useParams();
   const isInitial = currentUserId.id === currentUserToken.id;
 
   const currentUser = isInitial ? currentUserToken : currentUserId;
 
-  const showPageRedactionNews = () => {
-    dispatch(togglePostModal(true));
+  const showPageRedactionNews = (event) => {
+    dispatch(togglePostModal({ type: event.target.innerText, status: true }));
   };
 
   useEffect(() => {
@@ -41,6 +42,10 @@ function UserPage() {
     return <Message text={error} />;
   }
 
+  const backgroundAvatarUser = currentUser?.avatar?.url
+    ? `${process.env.REACT_APP_API_URL}${currentUser.avatar.url}`
+    : userDefaultAvatar;
+
   function userPosts() {
     return currentUser?.posts?.length
       ? <ShowPosts posts={currentUser?.posts} />
@@ -53,7 +58,7 @@ function UserPage() {
         {userPosts()}
       </div>
       <div className="data-user d-flex flex-column align-items-center p-3 gap-4 bg-light mt-3 col">
-        <div className="data-user__avatar" />
+        <img src={backgroundAvatarUser} className="data-user__avatar" alt="#" />
         <div className="data-user__name text-start w-100">
           <b>name:</b>
           {' '}
@@ -68,7 +73,7 @@ function UserPage() {
           {(isInitial && isLoggedIn)
             && (
               <>
-                <Button className="btn btn-blue">Edit Profile</Button>
+                <Button className="btn btn-blue" onClick={showPageRedactionNews}>Edit Profile</Button>
                 <Button className="btn btn-blue" onClick={showPageRedactionNews}>Add News</Button>
               </>
             )}

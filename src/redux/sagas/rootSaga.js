@@ -6,6 +6,7 @@ import loggedOutSaga from './loggedOutSaga';
 import userAuthSaga from './userAuthSaga';
 import userSaga from './userSaga';
 import createPost from './createPostSaga';
+import changeUserSaga from './changeUserSaga';
 
 export default function* rootSaga() {
   yield all([
@@ -15,5 +16,6 @@ export default function* rootSaga() {
     userAuthSaga(),
     userSaga(),
     createPost(),
+    changeUserSaga(),
   ]);
 }
