@@ -13,21 +13,22 @@ import Spinner from '../../components/Spinner/Spinner';
 import Message from '../../components/Message/Message';
 
 import './UserPage.css';
+import userDefaultAvatar from '../../assets/img/avatar-user-default.svg';
 
 function UserPage() {
+  const userId = useParams();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const currentUserToken = useSelector((state) => state.userData.currentUserToken);
   const currentUserId = useSelector((state) => state.userData.currentUserId);
   const isFetching = useSelector((state) => state.userData.isFetching);
   const error = useSelector((state) => state.userData.error);
-  const userId = useParams();
-  const isInitial = currentUserId.id === currentUserToken.id;
+  const isMyPage = currentUserId.id === currentUserToken.id;
 
-  const currentUser = isInitial ? currentUserToken : currentUserId;
+  const currentUser = isMyPage ? currentUserToken : currentUserId;
 
-  const showPageRedactionNews = () => {
-    dispatch(togglePostModal(true));
+  const toggleModificationModal = (event) => {
+    dispatch(togglePostModal({ type: event.target.innerText, status: true }));
   };
 
   useEffect(() => {
@@ -41,9 +42,13 @@ function UserPage() {
     return <Message text={error} />;
   }
 
+  const backgroundAvatarUser = currentUser?.avatar?.url
+    ? `${process.env.REACT_APP_API_URL}${currentUser.avatar.url}`
+    : userDefaultAvatar;
+
   function userPosts() {
     return currentUser?.posts?.length
-      ? <ShowPosts posts={currentUser?.posts} />
+      ? <ShowPosts posts={currentUser.posts} />
       : <div className="text-center h1 w-100">Not news</div>;
   }
 
@@ -52,8 +57,8 @@ function UserPage() {
       <div className="news-user col-9 d-flex flex-wrap gap-5 pt-3 pb-3">
         {userPosts()}
       </div>
-      <div className="data-user d-flex flex-column align-items-center p-3 gap-4 bg-light mt-3 col">
-        <div className="data-user__avatar" />
+      <div className="data-user">
+        <img src={backgroundAvatarUser} className="data-user__avatar" alt="User Avatar" />
         <div className="data-user__name text-start w-100">
           <b>name:</b>
           {' '}
@@ -65,11 +70,11 @@ function UserPage() {
           <em>{currentUser?.email}</em>
         </div>
         <div className="data-user__button-bar justify-content-between w-100 d-flex">
-          {(isInitial && isLoggedIn)
+          {(isMyPage && isLoggedIn)
             && (
               <>
-                <Button className="btn btn-blue">Edit Profile</Button>
-                <Button className="btn btn-blue" onClick={showPageRedactionNews}>Add News</Button>
+                <Button className="btn btn-blue" onClick={toggleModificationModal}>Edit Profile</Button>
+                <Button className="btn btn-blue" onClick={toggleModificationModal}>Add News</Button>
               </>
             )}
         </div>

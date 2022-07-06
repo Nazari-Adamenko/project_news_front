@@ -10,7 +10,8 @@ import {
 
 const initialState = {
   posts: [],
-  isShowCreatedNews: false,
+  typeModal: '',
+  isShowModal: false,
   isFetching: false,
   error: null,
 };
@@ -49,7 +50,7 @@ export default function postsReducer(state = initialState, action = {}) {
         ...state,
         isFetching: false,
         itsCreated: action.payload,
-        isShowCreatedNews: false,
+        isShowModal: false,
         error: null,
       };
     case CREATE_POST_FAILED:
@@ -62,7 +63,8 @@ export default function postsReducer(state = initialState, action = {}) {
     case TOGGLE_POST_MODAL:
       return {
         ...state,
-        isShowCreatedNews: action.payload,
+        typeModal: action.payload.type,
+        isShowModal: action.payload.status,
         error: null,
       };
     default:

@@ -82,3 +82,13 @@ export const cannotUserData = (error) => ({
   type: actionTypes.USER_DATA_FAILED,
   error,
 });
+
+export const getChangeUser = (payload) => ({
+  type: actionTypes.CHANGE_USER_REQUESTED,
+  payload,
+});
+
+export const gotChangeUser = (payload) => ({
+  type: actionTypes.CHANGE_USER_RECEIVED,
+  payload,
+});

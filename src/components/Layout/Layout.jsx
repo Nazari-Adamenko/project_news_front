@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import AuthModal from '../AuthModal/AuthModal';
-import CreatePostModal from '../CreatePostModal/CreatePostModal';
+import UserModal from '../UserModal/UserModal';
 
 import './Layout.css';
 
@@ -14,7 +14,7 @@ function Layout() {
         <header>
           <Header />
           <AuthModal />
-          <CreatePostModal />
+          <UserModal />
         </header>
         <div className="container flex-grow-1">
           <Outlet />
