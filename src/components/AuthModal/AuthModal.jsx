@@ -30,10 +30,13 @@ const RegInitialValue = {
 
 function AuthModal() {
   const dispatch = useDispatch();
+
   const statusModal = useSelector((state) => state.auth.statusModal);
   const typeModal = useSelector((state) => state.auth.typeModal);
   const errorAuth = useSelector((state) => state.auth.error);
+
   const isAuth = typeModal === SIGN_UP;
+
   const closeModal = () => {
     dispatch(toggleModal({ status: false, type: '' }));
   };

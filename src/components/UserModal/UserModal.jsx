@@ -36,18 +36,22 @@ const initialObjectUser = {
   image: '',
 };
 
-const arrayLabelPost = ['title', 'tags', 'content', 'image'];
-const arrayLabelUser = ['name', 'image'];
+const postCreationFields = ['title', 'tags', 'content', 'image'];
+const userEditFields = ['name', 'image'];
 
 function UserModal() {
   const dispatch = useDispatch();
   const [image, setImage] = useState({});
+
   const isShowModal = useSelector((state) => state.posts.isShowModal);
   const typeOfModal = useSelector((state) => state.posts.typeModal);
   const errorCreatePost = useSelector((state) => state.posts.error);
   const errorEditUser = useSelector((state) => state.userData.error);
+
   const isEditModal = typeOfModal === EDIT_PROFILE;
-  const currentFields = isEditModal ? arrayLabelUser : arrayLabelPost;
+  const currentError = isEditModal ? errorEditUser : errorCreatePost;
+  const currentFields = isEditModal ? userEditFields : postCreationFields;
+
   const closeModal = () => {
     dispatch(togglePostModal({ status: false, type: '' }));
   };
@@ -109,11 +113,11 @@ function UserModal() {
                 )))}
             </ModalBody>
             <ModalFooter>
-              {(errorCreatePost || errorEditUser)
+              {currentError
               && (
               <Alert className="flex-grow-1" variant="danger">
                 {
-                  isEditModal ? errorEditUser : errorCreatePost
+                  currentError
                 }
               </Alert>
               )}
