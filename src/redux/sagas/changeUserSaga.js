@@ -7,11 +7,11 @@ import {
 import api from '../../api/api';
 
 import { CHANGE_USER_REQUESTED } from '../../constants';
-import { gotChangeUser, cannotUserData } from '../actions';
+import { gotChangeUser, cannotUserData, togglePostModal } from '../actions';
 
 const ROUT_CHANGE_TO_USERS = '/users/';
 
-function* getChangeUserSaga({ payload }) {
+function* changeUserSaga({ payload }) {
   const currentAuthUser = yield select();
   const userId = currentAuthUser.userData.currentUserToken.id;
   const formData = new FormData();
@@ -29,11 +29,12 @@ function* getChangeUserSaga({ payload }) {
       },
     );
     yield put(gotChangeUser(data));
+    yield put(togglePostModal({ status: false }));
   } catch ({ message }) {
     yield put(cannotUserData(message));
   }
 }
 
 export default function* watcherSaga() {
-  yield takeEvery(CHANGE_USER_REQUESTED, getChangeUserSaga);
+  yield takeEvery(CHANGE_USER_REQUESTED, changeUserSaga);
 }

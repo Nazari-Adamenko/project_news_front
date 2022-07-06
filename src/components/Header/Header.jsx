@@ -65,7 +65,7 @@ function Header() {
                     onKeyPress={() => {}}
                     role="presentation"
                     className="user-avatar"
-                    alt="#"
+                    alt="User Avatar"
                   />
                   <Button
                     type="button"

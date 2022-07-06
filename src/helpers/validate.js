@@ -62,8 +62,7 @@ const validateFormCreate = {
 const validateFormEdit = {
   name: yup
     .string()
-    .trim()
-    .required(MESSAGE_REQUIRED),
+    .trim(),
 };
 
 export const validateUserRegistration = () => yup.object(validateFormReg);

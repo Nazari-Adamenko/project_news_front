@@ -23,11 +23,11 @@ function UserPage() {
   const currentUserId = useSelector((state) => state.userData.currentUserId);
   const isFetching = useSelector((state) => state.userData.isFetching);
   const error = useSelector((state) => state.userData.error);
-  const isInitial = currentUserId.id === currentUserToken.id;
+  const isMyPage = currentUserId.id === currentUserToken.id;
 
-  const currentUser = isInitial ? currentUserToken : currentUserId;
+  const currentUser = isMyPage ? currentUserToken : currentUserId;
 
-  const showPageRedactionNews = (event) => {
+  const toggleModificationModal = (event) => {
     dispatch(togglePostModal({ type: event.target.innerText, status: true }));
   };
 
@@ -48,7 +48,7 @@ function UserPage() {
 
   function userPosts() {
     return currentUser?.posts?.length
-      ? <ShowPosts posts={currentUser?.posts} />
+      ? <ShowPosts posts={currentUser.posts} />
       : <div className="text-center h1 w-100">Not news</div>;
   }
 
@@ -57,8 +57,8 @@ function UserPage() {
       <div className="news-user col-9 d-flex flex-wrap gap-5 pt-3 pb-3">
         {userPosts()}
       </div>
-      <div className="data-user d-flex flex-column align-items-center p-3 gap-4 bg-light mt-3 col">
-        <img src={backgroundAvatarUser} className="data-user__avatar" alt="#" />
+      <div className="data-user">
+        <img src={backgroundAvatarUser} className="data-user__avatar" alt="User Avatar" />
         <div className="data-user__name text-start w-100">
           <b>name:</b>
           {' '}
@@ -70,11 +70,11 @@ function UserPage() {
           <em>{currentUser?.email}</em>
         </div>
         <div className="data-user__button-bar justify-content-between w-100 d-flex">
-          {(isInitial && isLoggedIn)
+          {(isMyPage && isLoggedIn)
             && (
               <>
-                <Button className="btn btn-blue" onClick={showPageRedactionNews}>Edit Profile</Button>
-                <Button className="btn btn-blue" onClick={showPageRedactionNews}>Add News</Button>
+                <Button className="btn btn-blue" onClick={toggleModificationModal}>Edit Profile</Button>
+                <Button className="btn btn-blue" onClick={toggleModificationModal}>Add News</Button>
               </>
             )}
         </div>
