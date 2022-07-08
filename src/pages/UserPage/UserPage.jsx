@@ -24,6 +24,7 @@ function UserPage() {
   const isFetching = useSelector((state) => state.userData.isFetching);
   const error = useSelector((state) => state.userData.error);
   const isMyPage = currentUserId.id === currentUserToken.id;
+  const isModal = useSelector((state) => state.posts.isShowModal);
 
   const currentUser = isMyPage ? currentUserToken : currentUserId;
 
@@ -33,8 +34,9 @@ function UserPage() {
 
   useEffect(() => {
     dispatch(getUserData(userId));
-  }, [userId]);
+  }, [userId, isModal]);
 
+  console.log(currentUserId);
   if (isFetching) {
     return <Spinner />;
   }
@@ -47,8 +49,8 @@ function UserPage() {
     : userDefaultAvatar;
 
   function userPosts() {
-    return currentUser?.posts?.length
-      ? <ShowPosts posts={currentUser.posts} />
+    return currentUserId?.posts?.length
+      ? <ShowPosts posts={currentUserId.posts} />
       : <div className="text-center h1 w-100">Not news</div>;
   }
 

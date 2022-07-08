@@ -62,6 +62,7 @@ const validateFormCreate = {
 const validateFormEdit = {
   name: yup
     .string()
+    .required(MESSAGE_REQUIRED)
     .trim(),
 };
 

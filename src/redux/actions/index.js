@@ -39,6 +39,11 @@ export const toggleModal = (payload) => ({
   payload,
 });
 
+export const saveQueryParams = (payload) => ({
+  type: actionTypes.SAVE_QUERY_PARAMS,
+  payload,
+});
+
 export const getUser = (payload) => ({
   type: actionTypes.USER_DATA,
   payload,

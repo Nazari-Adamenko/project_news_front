@@ -11,3 +11,11 @@
   transition: all 0.5s ease;
   box-shadow: 0 0.5rem 1rem rgba(4, 0, 255, 0.15);
 }
+
+.navbar{
+  height: 70px;
+}
+
+.navbar-brand{
+  flex: 1 1 auto;
+}

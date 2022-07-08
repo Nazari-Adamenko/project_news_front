@@ -10,13 +10,14 @@ import { getPosts } from '../redux/actions';
 function MainPage() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, []);
-
   const posts = useSelector((state) => state.posts.posts);
   const error = useSelector((state) => state.posts.error);
   const isFetching = useSelector((state) => state.posts.isFetching);
+  const { search } = useSelector((state) => state.posts.queryString);
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [search]);
 
   if (isFetching) {
     return <Spinner />;

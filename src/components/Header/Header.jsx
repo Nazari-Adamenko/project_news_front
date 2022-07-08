@@ -11,6 +11,7 @@ import {
   ROUT_TO_USER,
   ROUT_TO_MAIN,
 } from '../../constants';
+import SearchForm from '../SearchForm/SearchForm';
 
 import './Header.css';
 import userDefaultAvatar from '../../assets/img/avatar-user-default.svg';
@@ -47,7 +48,7 @@ function Header() {
         <Link className="navbar-brand" to="/">
           News hell
         </Link>
-        <p className="h1 m-0">News site</p>
+        <SearchForm />
         <div>
           {
             !isLoggedIn

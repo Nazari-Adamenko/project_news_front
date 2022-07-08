@@ -6,6 +6,7 @@ import {
   CREATE_POST_REQUESTED,
   CREATE_POST_RECEIVED,
   CREATE_POST_FAILED,
+  SAVE_QUERY_PARAMS,
 } from '../../constants';
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   typeModal: '',
   isShowModal: false,
   isFetching: false,
+  queryString: {},
   error: null,
 };
 
@@ -66,6 +68,11 @@ export default function postsReducer(state = initialState, action = {}) {
         typeModal: action.payload.type,
         isShowModal: action.payload.status,
         error: null,
+      };
+    case SAVE_QUERY_PARAMS:
+      return {
+        ...state,
+        queryString: action.payload,
       };
     default:
       return state;

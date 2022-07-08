@@ -28,12 +28,10 @@ const initialObjectPost = {
   title: '',
   tags: '',
   content: '',
-  image: '',
 };
 
 const initialObjectUser = {
   name: '',
-  image: '',
 };
 
 const postCreationFields = ['title', 'tags', 'content', 'image'];
